@@ -1,0 +1,5 @@
+quarkus:
+  application:
+    name: Wedding-Planner
+  http:
+    root-path: /api

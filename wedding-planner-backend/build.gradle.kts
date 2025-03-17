@@ -1,6 +1,7 @@
 plugins {
     java
     id("io.quarkus")
+    id("org.openapi.generator") version "7.12.0"
 }
 
 repositories {
@@ -14,9 +15,14 @@ val quarkusPlatformVersion: String by project
 
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
-    implementation("io.quarkus:quarkus-rest")
-    implementation("io.quarkus:quarkus-rest-jackson")
+    implementation("io.quarkus:quarkus-resteasy")
+    implementation("io.quarkus:quarkus-resteasy-jackson")
+    implementation("io.quarkus:quarkus-config-yaml")
     implementation("io.quarkus:quarkus-arc")
+    implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+    implementation("io.quarkiverse.microprofile:quarkus-microprofile:3.4.0")
+    implementation("org.projectlombok:lombok:1.18.34")
+    annotationProcessor("org.projectlombok:lombok:1.18.34")
     testImplementation("io.quarkus:quarkus-junit5")
 }
 
@@ -28,10 +34,41 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
+sourceSets {
+    main {
+        java.srcDir("src/main/java")
+        java.srcDir("$buildDir/generated-resources/src/main/java")
+    }
+}
+
+openApiGenerate {
+    generatorName.set("jaxrs-spec")
+    inputSpec.set("$rootDir/../api/openapi.yaml")
+    outputDir.set("$buildDir/generated-resources")
+    configOptions.set(
+        mapOf(
+            "sourceFolder" to "src/main/java",
+            "modelPackage" to "de.swf.ehv.planner.generated.api.model",
+            "apiPackage" to "de.swf.ehv.planner.generated.api",
+            "interfaceOnly" to "true",
+            "library" to "quarkus",
+            "dateLibrary" to "java8",
+            "generateBuilders" to "true",
+            "booleanGetterPrefix" to "is",
+            "useJakartaEe" to "true",
+            "useTags" to "true",
+            "useSwaggerAnnotations" to "false",
+            "useMicroProfileOpenAPIAnnotations" to "true",
+            "returnResponse" to "true",
+        )
+    )
+}
+
 tasks.withType<Test> {
     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 }
 tasks.withType<JavaCompile> {
+    dependsOn("openApiGenerate")
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
 }
