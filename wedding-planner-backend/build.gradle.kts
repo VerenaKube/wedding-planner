@@ -1,7 +1,7 @@
 plugins {
     java
     id("io.quarkus")
-    id("org.openapi.generator") version "7.12.0"
+    id("org.openapi.generator")
 }
 
 repositories {
@@ -12,6 +12,9 @@ repositories {
 val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
+val jakartaValidationVersion: String by project
+val microprofileVersion: String by project
+val lombokVersion: String by project
 
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
@@ -19,10 +22,10 @@ dependencies {
     implementation("io.quarkus:quarkus-resteasy-jackson")
     implementation("io.quarkus:quarkus-config-yaml")
     implementation("io.quarkus:quarkus-arc")
-    implementation("jakarta.validation:jakarta.validation-api:3.1.1")
-    implementation("io.quarkiverse.microprofile:quarkus-microprofile:3.4.0")
-    implementation("org.projectlombok:lombok:1.18.34")
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
+    implementation("jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}")
+    implementation("io.quarkiverse.microprofile:quarkus-microprofile:${microprofileVersion}")
+    implementation("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("io.quarkus:quarkus-junit5")
 }
 
