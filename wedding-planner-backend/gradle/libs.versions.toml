@@ -1,0 +1,21 @@
+[versions]
+quarkus = "3.19.3"
+jakartaValidation = "3.1.1"
+microprofile = "3.4.0"
+lombok = "1.18.34"
+openapiGenerator = "7.12.0"
+
+[libraries]
+quarkus-bom = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkus" }
+quarkus-resteasy = { module = "io.quarkus:quarkus-resteasy", version.ref = "quarkus" }
+quarkus-resteasy-jackson = { module = "io.quarkus:quarkus-resteasy-jackson", version.ref = "quarkus" }
+quarkus-config-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quarkus" }
+quarkus-arc = { module = "io.quarkus:quarkus-arc", version.ref = "quarkus" }
+jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakartaValidation" }
+quarkus-microprofile = { module = "io.quarkiverse.microprofile:quarkus-microprofile", version.ref = "microprofile" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
+
+[plugins]
+quarkus = { id = "io.quarkus", version.ref = "quarkus" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapiGenerator" }

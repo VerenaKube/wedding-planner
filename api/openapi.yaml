@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: Wedding-Planner API
+  version: 1.0.0
+
+paths:
+  /planner:
+    get:
+      tags:
+        - Planner
+      summary: Returns a greeting message
+      operationId: getExample
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+
+components:
+  schemas:
+    Example:
+      properties:
+        content:
+          type: string
+      required:
+        - content
