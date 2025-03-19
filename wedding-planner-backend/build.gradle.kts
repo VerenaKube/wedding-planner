@@ -1,7 +1,7 @@
 plugins {
     java
-    id("io.quarkus")
-    id("org.openapi.generator")
+    alias(libs.plugins.quarkus) apply true
+    alias(libs.plugins.openapi.generator) apply true
 }
 
 repositories {
@@ -9,24 +9,17 @@ repositories {
     mavenLocal()
 }
 
-val quarkusPlatformGroupId: String by project
-val quarkusPlatformArtifactId: String by project
-val quarkusPlatformVersion: String by project
-val jakartaValidationVersion: String by project
-val microprofileVersion: String by project
-val lombokVersion: String by project
-
 dependencies {
-    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
-    implementation("io.quarkus:quarkus-resteasy")
-    implementation("io.quarkus:quarkus-resteasy-jackson")
-    implementation("io.quarkus:quarkus-config-yaml")
-    implementation("io.quarkus:quarkus-arc")
-    implementation("jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}")
-    implementation("io.quarkiverse.microprofile:quarkus-microprofile:${microprofileVersion}")
-    implementation("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testImplementation("io.quarkus:quarkus-junit5")
+    implementation(enforcedPlatform(libs.quarkus.bom))
+    implementation(libs.quarkus.resteasy)
+    implementation(libs.quarkus.resteasy.jackson)
+    implementation(libs.quarkus.config.yaml)
+    implementation(libs.quarkus.arc)
+    implementation(libs.jakarta.validation.api)
+    implementation(libs.quarkus.microprofile)
+    implementation(libs.lombok)
+    annotationProcessor(libs.lombok)
+    testImplementation(libs.quarkus.junit5)
 }
 
 group = "de.swf.ehv"
