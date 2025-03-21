@@ -24,9 +24,9 @@ export default function Registration() {
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-white">
+                        <p className="block text-sm font-medium text-white">
                             Vor- und Nachname
-                        </label>
+                        </p>
                         <div className="mt-2">
                             <input
                                 className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
@@ -34,9 +34,9 @@ export default function Registration() {
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-white">
+                        <p className="block text-sm font-medium text-white">
                             Email Adresse
-                        </label>
+                        </p>
                         <div className="mt-2">
                             <input
                                 className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
@@ -44,9 +44,9 @@ export default function Registration() {
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-white">
+                        <p className="block text-sm font-medium text-white">
                             Passwort
-                        </label>
+                        </p>
                         <div className="mt-2">
                             <input
                                 className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
@@ -54,9 +54,9 @@ export default function Registration() {
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-white">
+                        <p className="block text-sm font-medium text-white">
                             Passwort wiederholen
-                        </label>
+                        </p>
                         <div className="mt-2">
                             <input
                                 className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
