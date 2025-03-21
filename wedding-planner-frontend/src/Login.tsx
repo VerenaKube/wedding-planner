@@ -7,6 +7,12 @@ export default function Login() {
     const switchToHome = () => {
         navigate('/home');
     }
+    const switchToRegistry = () => {
+        navigate('/registry');
+    }
+    const switchToResetPassword = () => {
+        navigate('/password-reset');
+    }
 
     return (
         <div className="h-screen w-full bg-[rgb(97,30,38)] flex flex-col justify-center "
@@ -15,7 +21,7 @@ export default function Login() {
                 <img
                     src={logo}
                     alt={"Sitzplangenerator"}
-                    className="mx-auto h-20 w-auto invert brightness-100"
+                    className="mx-auto h-40 w-auto invert brightness-100"
                 />
                 <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-white">
                     Sign in to your account
@@ -47,6 +53,7 @@ export default function Login() {
                             </label>
                             <div className="text-sm">
                                 <a href="#"
+                                   onClick={switchToResetPassword}
                                    className="font-semibold text-[rgb(207,185,151)] hover:!text-[rgb(235,215,180)] focus:!text-[rgb(207,185,151)] active:!text-[rgb(207,185,151)] visited:!text-[rgb(207,185,151)]">
                                     Forgot password?
                                 </a>
@@ -78,6 +85,7 @@ export default function Login() {
                 <p className="mt-4 text-center text-sm text-white">
                     Not a member?{' '}
                     <a href="#"
+                       onClick={switchToRegistry}
                        className="font-semibold text-[rgb(207,185,151)] hover:!text-[rgb(235,215,180)] focus:!text-[rgb(207,185,151)] active:!text-[rgb(207,185,151)] visited:!text-[rgb(207,185,151)]">
                         Hier registrieren!
                     </a>
