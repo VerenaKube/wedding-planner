@@ -4,25 +4,211 @@ info:
   version: 1.0.0
 
 paths:
-  /planner:
-    get:
+  /seatingplans:
+    post:
       tags:
-        - Planner
-      summary: Returns a greeting message
-      operationId: getExample
+        - Seatingplan
+      summary: Creates a seatingplan and returns the generated id.
+      operationId: createSeatingplan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SeatingplanCreationRequest"
       responses:
-        "200":
-          description: Successful response
+        "201":
+          description: Seatingplan successfully created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Example"
+                type: string
+                format: uuid
+
+  /seatingplans/{id}:
+    get:
+      tags:
+        - Seatingplan
+      summary: Returns a seatingplan for a given ID
+      operationId: getSeatingplanById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Successfully found seatingplan for given id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Seatingplan"
+        "404":
+          description: Seatingplan for given id not found
+    put:
+      tags:
+        - Seatingplan
+      summary: Updates a seatingplan for a given id
+      operationId: Update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Seatingplan"
+      responses:
+        "200":
+          description: "Seatingplan successfully updated"
+        "404":
+          description: "Seatingplan for given id not found"
+        "412":
+          description: "The given id doesn't match the seatingplan id"
+    delete:
+      tags:
+        - Seatingplan
+      summary: Deletes a seatingplan for a given ID
+      operationId: deleteSeatingplan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Succussfully deleted seatingplan for given id
+        "404":
+          description: Seatingplan for given id not found
+
+  /seatingplans/{id}/validations:
+    post:
+      tags:
+        - Seatingplan
+      summary: Validates an existing seatingplan
+      operationId: validateSeatingplan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "202":
+          description: "The seatingplan for the given id is valid."
+        "404":
+          description: "Seatingplan for the given id not found"
+        "412":
+          description: "Seatingplan is not completed. No validation possible."
+        "417":
+          description: "The seatingplan is not valid"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationResponse"
 
 components:
   schemas:
-    Example:
+    SeatingplanCreationRequest:
       properties:
-        content:
+        name:
+          type: string
+        weddingDate:
+          type: string
+          format: date
+        bride:
+          type: string
+        groom:
           type: string
       required:
-        - content
+        - name
+        - weddingDate
+        - bride
+        - groom
+
+    Seatingplan:
+      properties:
+        name:
+          type: string
+        weddingDate:
+          type: string
+          format: date
+        bride:
+          type: string
+        groom:
+          type: string
+        guestList:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuestCircle"
+        tableData:
+          $ref: "#/components/schemas/TableData"
+        seatingRules:
+          type: array
+          items:
+            $ref: "#/components/schemas/SeatingRule"
+
+    GuestCircle:
+      properties:
+        name:
+          type: string
+        member:
+          $ref: "#/components/schemas/Guest"
+    
+    Guest:
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          $ref: "#/components/schemas/Age"
+        group:
+          type: string
+
+    Age:
+      type: string
+      enum:
+        - CHILD
+        - TEEN
+        - YOUNG_ADULT
+        - ADULT
+        - SENIOR
+
+    TableData:
+      properties:
+        type:
+          $ref: "#/components/schemas/TableType"
+        seatsPerTable:
+          type: integer
+        numberOfTables:
+          type: integer
+
+    TableType:
+      type: string
+      enum:
+        - ROUND
+        - SQUARE
+        - WEDDING_TABLE
+
+    SeatingRule:
+      properties:
+        id:
+          type: string
+          format: uuid
+      # TODO add missing properties
+
+    ValidationResponse:
+      properties:
+        message:
+          type: string
+      required:
+        - message
