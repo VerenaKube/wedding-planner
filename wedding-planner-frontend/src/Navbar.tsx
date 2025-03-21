@@ -12,7 +12,6 @@ export default function NavBar() {
                     />
                 </div>
 
-                {/* Container für Buttons */}
                 <div className="flex justify-center w-full">
                     <div className="flex space-x-20 ">
                         <button

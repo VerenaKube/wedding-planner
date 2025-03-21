@@ -18,6 +18,7 @@ export default function Welcome() {
 
                 <img
                     src={logo}
+                    alt={"Sitzplangenerator"}
                     className="mx-auto h-30 w-auto invert brightness-100"
                 />
                 <p className="text-center text-2xl font-bold tracking-tight text-white pt-10"
