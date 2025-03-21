@@ -7,8 +7,8 @@ export default function Login() {
     const switchToHome = () => {
         navigate('/home');
     }
-    const switchToRegistry = () => {
-        navigate('/registry');
+    const switchToRegistration = () => {
+        navigate('/registration');
     }
     const switchToResetPassword = () => {
         navigate('/password-reset');
@@ -85,7 +85,7 @@ export default function Login() {
                 <p className="mt-4 text-center text-sm text-white">
                     Not a member?{' '}
                     <a href="#"
-                       onClick={switchToRegistry}
+                       onClick={switchToRegistration}
                        className="font-semibold text-[rgb(207,185,151)] hover:!text-[rgb(235,215,180)] focus:!text-[rgb(207,185,151)] active:!text-[rgb(207,185,151)] visited:!text-[rgb(207,185,151)]">
                         Hier registrieren!
                     </a>
