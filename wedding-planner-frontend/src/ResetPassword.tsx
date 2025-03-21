@@ -28,17 +28,17 @@ export default function ResetPassword() {
                     alt={"Sitzplangenerator"}
                     className="mx-auto h-40 w-auto invert brightness-100"
                 />
-                <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-white">
+                <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-white pt-10">
                     Passwort vergessen?
                 </h2>
             </div>
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <div className="space-y-4">
+                <div className="space-y-4 pt-10">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-white">
                             Bitte geben Sie hier Ihre Email Addresse ein.
                         </label>
-                        <div className="mt-2">
+                        <div className="mt-2 pt-3">
                             <input
                                 id="email"
                                 name="email"
@@ -50,11 +50,18 @@ export default function ResetPassword() {
                         </div>
                     </div>
 
-                    <div className="mt-12">
+                    <div className="mt-12 flex space-x-4">
+
+                        <button
+                            onClick={switchToHome}
+                            type="button"
+                            className="hover:!border-black flex-1 rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 focus:outline-white-600 sm:text-sm">
+                            Zurück zum Login
+                        </button>
                         <button
                             onClick={handleSubmit}
                             type="button"
-                            className="hover:!border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 focus:outline-white-600 sm:text-sm">
+                            className="hover:!border-black flex-1 rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 focus:outline-white-600 sm:text-sm">
                             Abschicken
                         </button>
                     </div>
@@ -80,7 +87,6 @@ export default function ResetPassword() {
                                 className="hover:!border-white px-4 py-2 !bg-[rgb(97,30,38)] text-white rounded-md hover:bg-[rgb(120,40,50)]">
                                 Zurück zum Login
                             </button>
-
                         </div>
                     </div>
                 </div>
