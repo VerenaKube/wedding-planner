@@ -1,0 +1,10 @@
+### Create a seatingplan
+POST http://localhost:8080/api/seatingplans
+Content-Type: application/json
+
+{
+  "name": "Example",
+  "bride": "Verena",
+  "groom": "Rene",
+  "weddingDate": "2025-05-05"
+}
