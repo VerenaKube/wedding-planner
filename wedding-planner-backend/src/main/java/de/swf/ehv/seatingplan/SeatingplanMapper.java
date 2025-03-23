@@ -7,6 +7,7 @@ import de.swf.ehv.seatingplan.persistence.entities.TableType;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -14,6 +15,7 @@ public class SeatingplanMapper {
 
     public Seatingplan toSeatingplan(SeatingplanCreationRequest seatingplanCreationRequest) {
         return Seatingplan.builder()
+                .id(UUID.randomUUID())
                 .name(seatingplanCreationRequest.getName())
                 .bride(seatingplanCreationRequest.getBride())
                 .groom(seatingplanCreationRequest.getGroom())
