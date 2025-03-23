@@ -7,15 +7,18 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-api-client": "openapi-generator-cli generate -i ../api/api.yaml -g typescript-axios -o src/api-client"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.14",
+    "axios": "^1.8.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0",
+    "react-tailwindcss-datepicker": "^2.0.0",
     "tailwindcss": "^4.0.14"
   },
   "devDependencies": {
