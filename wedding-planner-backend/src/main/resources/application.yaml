@@ -3,3 +3,6 @@ quarkus:
     name: Wedding-Planner
   http:
     root-path: /api
+  mongodb:
+    connection-string: "mongodb://root:IAmUnsecure@localhost:27017/weddingDB?authSource=admin"
+    database: weddingDB

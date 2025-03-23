@@ -1,8 +1,9 @@
-package de.swf.ehv.seatingplan;
+package de.swf.ehv.seatingplan.api;
 
 import de.swf.ehv.planner.generated.api.SeatingplanApi;
-import de.swf.ehv.planner.generated.api.model.Seatingplan;
 import de.swf.ehv.planner.generated.api.model.SeatingplanCreationRequest;
+import de.swf.ehv.planner.generated.api.model.SeatingplanDto;
+import de.swf.ehv.seatingplan.SeatingplanService;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
@@ -15,9 +16,8 @@ public class SeatingplanResource implements SeatingplanApi {
 
     @Override
     public Response createSeatingplan(SeatingplanCreationRequest seatingplanCreationRequest) {
-        // TODO implement
         return Response.status(Response.Status.CREATED)
-                .entity(UUID.randomUUID())
+                .entity(service.createSeatingplan(seatingplanCreationRequest))
                 .build();
     }
 
@@ -28,7 +28,7 @@ public class SeatingplanResource implements SeatingplanApi {
     }
 
     @Override
-    public Response update(UUID id, Seatingplan seatingplan) {
+    public Response update(UUID id, SeatingplanDto seatingplan) {
         // TODO implement
         return Response.status(404, "No seatingplan with id " + id + " found").build();
     }
