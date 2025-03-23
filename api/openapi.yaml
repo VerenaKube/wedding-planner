@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Seatingplan"
+                $ref: "#/components/schemas/SeatingplanDto"
         "404":
           description: Seatingplan for given id not found
     put:
@@ -62,7 +62,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Seatingplan"
+              $ref: "#/components/schemas/SeatingplanDto"
       responses:
         "200":
           description: "Seatingplan successfully updated"
@@ -134,8 +134,11 @@ components:
         - bride
         - groom
 
-    Seatingplan:
+    SeatingplanDto:
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         weddingDate:
@@ -148,22 +151,24 @@ components:
         guestList:
           type: array
           items:
-            $ref: "#/components/schemas/GuestCircle"
+            $ref: "#/components/schemas/GuestCircleDto"
         tableData:
-          $ref: "#/components/schemas/TableData"
+          $ref: "#/components/schemas/TableDataDto"
         seatingRules:
           type: array
           items:
-            $ref: "#/components/schemas/SeatingRule"
+            $ref: "#/components/schemas/SeatingRuleDto"
 
-    GuestCircle:
+    GuestCircleDto:
       properties:
         name:
           type: string
-        member:
-          $ref: "#/components/schemas/Guest"
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuestDto"
     
-    Guest:
+    GuestDto:
       properties:
         firstName:
           type: string
@@ -171,8 +176,10 @@ components:
           type: string
         age:
           $ref: "#/components/schemas/Age"
-        group:
-          type: string
+        groups:
+          type: array
+          items:
+            type: string
 
     Age:
       type: string
@@ -183,7 +190,7 @@ components:
         - ADULT
         - SENIOR
 
-    TableData:
+    TableDataDto:
       properties:
         type:
           $ref: "#/components/schemas/TableType"
@@ -199,7 +206,7 @@ components:
         - SQUARE
         - WEDDING_TABLE
 
-    SeatingRule:
+    SeatingRuleDto:
       properties:
         id:
           type: string
