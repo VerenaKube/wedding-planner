@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.quarkus.resteasy.jackson)
     implementation(libs.quarkus.config.yaml)
     implementation(libs.quarkus.arc)
+    implementation(libs.quarkus.mongo.panache)
     implementation(libs.jakarta.validation.api)
     implementation(libs.quarkus.microprofile)
     implementation(libs.lombok)
