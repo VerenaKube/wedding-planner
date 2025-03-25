@@ -61,6 +61,15 @@ openApiGenerate {
     )
 }
 
+tasks.named("compileJava") {
+    dependsOn("openApiGenerate")
+    dependsOn("compileQuarkusGeneratedSourcesJava")
+}
+
+tasks.named("quarkusGenerateCodeTests") {
+    dependsOn("compileJava")
+}
+
 tasks.withType<Test> {
     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 }
