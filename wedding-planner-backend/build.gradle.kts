@@ -34,14 +34,14 @@ java {
 sourceSets {
     main {
         java.srcDir("src/main/java")
-        java.srcDir("$buildDir/generated-resources/src/main/java")
+        java.srcDir("${layout.buildDirectory.get()}/generated-resources/src/main/java")
     }
 }
 
 openApiGenerate {
     generatorName.set("jaxrs-spec")
     inputSpec.set("$rootDir/../api/openapi.yaml")
-    outputDir.set("$buildDir/generated-resources")
+    outputDir.set("${layout.buildDirectory.get()}/generated-resources")
     configOptions.set(
         mapOf(
             "sourceFolder" to "src/main/java",
