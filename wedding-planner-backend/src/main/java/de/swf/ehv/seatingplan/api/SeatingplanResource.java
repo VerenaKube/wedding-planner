@@ -23,25 +23,28 @@ public class SeatingplanResource implements SeatingplanApi {
 
     @Override
     public Response getSeatingplanById(UUID id) {
-        // TODO implement
-        return Response.status(404, "No seatingplan with id " + id + " found").build();
+        return Response.status(200).entity(service.getSeatingplanById(id)).build();
     }
 
     @Override
     public Response update(UUID id, SeatingplanDto seatingplan) {
-        // TODO implement
-        return Response.status(404, "No seatingplan with id " + id + " found").build();
+        // TODO add validation to check if the given id matches the id of the given seatingplan
+        service.updateSeatingplan(seatingplan);
+        return Response.status(204, "Seatingplan with id " + id + " successfully updated")
+                .build();
     }
 
     @Override
     public Response deleteSeatingplan(UUID id) {
-        // TODO implement
-        return Response.status(404, "No seatingplan with id " + id + " found").build();
+        service.deleteSeatingplan(id);
+        return Response.status(204, "Seatingplan with id " + id + " successfully deleted")
+                .build();
     }
 
     @Override
     public Response validateSeatingplan(UUID id) {
-        // TODO implement
-        return Response.status(404, "No seatingplan with id " + id + " found").build();
+        return Response.status(200, "Seatingplan successfully validated")
+                .entity(service.validateSeatingplan(id))
+                .build();
     }
 }
