@@ -102,18 +102,17 @@ paths:
             type: string
             format: uuid
       responses:
-        "202":
-          description: "The seatingplan for the given id is valid."
-        "404":
-          description: "Seatingplan for the given id not found"
-        "412":
-          description: "Seatingplan is not completed. No validation possible."
-        "417":
-          description: "The seatingplan is not valid"
+        "200":
+          description: "Seatingplan successfully validated"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ValidationResponse"
+
+        "404":
+          description: "Seatingplan for the given id not found"
+        "412":
+          description: "Seatingplan is not completed. No validation possible."
 
 components:
   schemas:
@@ -211,11 +210,29 @@ components:
         id:
           type: string
           format: uuid
-      # TODO add missing properties
+        firstGuest:
+          $ref: "#/components/schemas/GuestMinimalDto"
+        secondGuest:
+          $ref: "#/components/schemas/GuestMinimalDto"
+        ruleType:
+          $ref: "#/components/schemas/RuleType"
+
+    GuestMinimalDto:
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    RuleType:
+      type: string
+      enum:
+        - FRIEND
+        - ENEMY
 
     ValidationResponse:
       properties:
-        message:
-          type: string
-      required:
-        - message
+        messages:
+          type: array
+          items:
+            type: string

@@ -1,8 +1,20 @@
 package de.swf.ehv.seatingplan;
 
-import de.swf.ehv.planner.generated.api.model.*;
-import de.swf.ehv.seatingplan.persistence.entities.*;
+import de.swf.ehv.planner.generated.api.model.GuestCircleDto;
+import de.swf.ehv.planner.generated.api.model.GuestDto;
+import de.swf.ehv.planner.generated.api.model.GuestMinimalDto;
+import de.swf.ehv.planner.generated.api.model.SeatingRuleDto;
+import de.swf.ehv.planner.generated.api.model.SeatingplanCreationRequest;
+import de.swf.ehv.planner.generated.api.model.SeatingplanDto;
+import de.swf.ehv.planner.generated.api.model.TableDataDto;
 import de.swf.ehv.seatingplan.persistence.entities.Age;
+import de.swf.ehv.seatingplan.persistence.entities.Guest;
+import de.swf.ehv.seatingplan.persistence.entities.GuestCircle;
+import de.swf.ehv.seatingplan.persistence.entities.GuestMinimal;
+import de.swf.ehv.seatingplan.persistence.entities.RuleType;
+import de.swf.ehv.seatingplan.persistence.entities.SeatingRule;
+import de.swf.ehv.seatingplan.persistence.entities.Seatingplan;
+import de.swf.ehv.seatingplan.persistence.entities.TableData;
 import de.swf.ehv.seatingplan.persistence.entities.TableType;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -66,6 +78,77 @@ public class SeatingplanMapper {
     }
 
     private SeatingRule toSeatingRule(SeatingRuleDto seatingRuleDto) {
-        return new SeatingRule(seatingRuleDto.getId());
+        return new SeatingRule(
+                seatingRuleDto.getId(),
+                RuleType.valueOf(seatingRuleDto.getRuleType().toString()),
+                toGuestMinimal(seatingRuleDto.getFirstGuest()),
+                toGuestMinimal(seatingRuleDto.getSecondGuest()));
+    }
+
+    private GuestMinimal toGuestMinimal(GuestMinimalDto guestMinimalDto) {
+        return new GuestMinimal(guestMinimalDto.getFirstName(), guestMinimalDto.getLastName());
+    }
+
+    public SeatingplanDto fromSeatingplan(Seatingplan seatingplan) {
+        return SeatingplanDto.builder()
+                .id(seatingplan.getId())
+                .name(seatingplan.getName())
+                .bride(seatingplan.getBride())
+                .groom(seatingplan.getGroom())
+                .weddingDate(seatingplan.getWeddingDate())
+                .guestList(fromGuestList(seatingplan.getGuestList()))
+                .tableData(fromTableData(seatingplan.getTableData()))
+                .seatingRules(fromSeatingRules(seatingplan.getSeatingRules()))
+                .build();
+    }
+
+    private List<GuestCircleDto> fromGuestList(List<GuestCircle> guestList) {
+        return guestList.stream().map(this::fromGuestCircle).toList();
+    }
+
+    private GuestCircleDto fromGuestCircle(GuestCircle guestCircle) {
+        return GuestCircleDto.builder()
+                .name(guestCircle.name())
+                .members(guestCircle.members().stream().map(this::fromGuest).toList())
+                .build();
+    }
+
+    private GuestDto fromGuest(Guest guest) {
+        return GuestDto.builder()
+                .firstName(guest.firstName())
+                .lastName(guest.lastName())
+                .age(de.swf.ehv.planner.generated.api.model.Age.valueOf(
+                        guest.age().toString()))
+                .groups(guest.groups())
+                .build();
+    }
+
+    private TableDataDto fromTableData(TableData tableData) {
+        return TableDataDto.builder()
+                .numberOfTables(tableData.numberOfTables())
+                .seatsPerTable(tableData.seatsPerTable())
+                .type(de.swf.ehv.planner.generated.api.model.TableType.valueOf(
+                        tableData.type().toString()))
+                .build();
+    }
+
+    private List<SeatingRuleDto> fromSeatingRules(List<SeatingRule> seatingRules) {
+        return seatingRules.stream().map(this::fromSeatingRule).collect(Collectors.toList());
+    }
+
+    private SeatingRuleDto fromSeatingRule(SeatingRule seatingRule) {
+        return SeatingRuleDto.builder()
+                .ruleType(de.swf.ehv.planner.generated.api.model.RuleType.valueOf(
+                        seatingRule.ruleType().toString()))
+                .firstGuest(fromGuestMinimal(seatingRule.firstGuest()))
+                .secondGuest(fromGuestMinimal(seatingRule.secondGuest()))
+                .build();
+    }
+
+    private GuestMinimalDto fromGuestMinimal(GuestMinimal guestMinimal) {
+        return GuestMinimalDto.builder()
+                .firstName(guestMinimal.firstName())
+                .lastName(guestMinimal.lastName())
+                .build();
     }
 }
