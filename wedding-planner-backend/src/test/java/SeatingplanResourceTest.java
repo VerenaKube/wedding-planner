@@ -1,5 +1,4 @@
-class SeatingplanResourceTest {
+import io.quarkus.test.junit.QuarkusTest;
 
-    // TODO implement
-
-}
+@QuarkusTest
+class SeatingplanResourceTest {}

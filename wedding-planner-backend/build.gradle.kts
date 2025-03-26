@@ -21,6 +21,9 @@ dependencies {
     implementation(libs.lombok)
     annotationProcessor(libs.lombok)
     testImplementation(libs.quarkus.junit5)
+    testImplementation(libs.testcontainers.mongodb)
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.rest.assured)
 }
 
 group = "de.swf.ehv"
