@@ -4,6 +4,9 @@ jakartaValidation = "3.1.1"
 microprofile = "3.4.0"
 lombok = "1.18.34"
 openapiGenerator = "7.12.0"
+testcontainers = "1.20.6"
+assertJ = "4.0.0-M1"
+restAssured = "5.5.1"
 
 [libraries]
 quarkus-bom = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkus" }
@@ -16,6 +19,9 @@ jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api",
 quarkus-microprofile = { module = "io.quarkiverse.microprofile:quarkus-microprofile", version.ref = "microprofile" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
+testcontainers-mongodb = { module = "org.testcontainers:mongodb", version.ref = "testcontainers" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
+rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "restAssured" }
 
 [plugins]
 quarkus = { id = "io.quarkus", version.ref = "quarkus" }
