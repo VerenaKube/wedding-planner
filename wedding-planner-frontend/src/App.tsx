@@ -6,6 +6,7 @@ import Welcome from "./views/Welcome.tsx";
 import Registration from "./views/Registration.tsx";
 import ResetPassword from "./views/ResetPassword.tsx";
 import GeneralData from "./views/GeneralData.tsx";
+import Guests from "./views/Guests.tsx";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/password-reset" element={<ResetPassword/>}/>
                     <Route path="/general-data" element={<GeneralData/>}/>
+                    <Route path="/guests" element={<Guests/>}/>
                 </Routes>
             </Router>
         </div>

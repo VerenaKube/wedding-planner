@@ -4,6 +4,7 @@ import hochzeitsbild from "../assets/images/Hochzeitsbild.png";
 import {useState} from "react";
 import {SeatingplanCreationRequest} from "../api-client";
 import {createSeatingPlan} from "../services/generateSeatingplan.ts";
+import {useNavigate} from "react-router-dom";
 
 
 export default function GeneralData() {
@@ -13,6 +14,11 @@ export default function GeneralData() {
         bride: '',
         groom: '',
     });
+
+    const navigate = useNavigate();
+    const switchToHome = () => {
+        navigate('/home');
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -122,6 +128,7 @@ export default function GeneralData() {
                     </div>
                     <div className="flex items-center mb-4 w-2/5 pt-6">
                         <button
+                            onClick={switchToHome}
                             type="submit"
                             className="hover:!border-white !bg-[rgb(97,30,38)] text-white rounded-md hover:bg-[rgb(120,40,50)] flex justify-center w-full !text-xl"
                             style={{fontFamily: 'Bad Script, sans-serif'}}
