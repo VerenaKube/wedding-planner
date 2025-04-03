@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.quarkus.mongo.panache)
     implementation(libs.jakarta.validation.api)
     implementation(libs.quarkus.microprofile)
+    implementation(libs.apache.commons)
     implementation(libs.lombok)
     annotationProcessor(libs.lombok)
     testImplementation(libs.quarkus.junit5)
