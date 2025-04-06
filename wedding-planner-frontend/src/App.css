@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+.red-button {
+    @apply mt-25 hover:border-black px-4 py-2 bg-[rgb(97,30,38)] text-white rounded-xl p-0 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 sm:text-sm hover:scale-102
+    /*@apply hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 sm:text-sm*/
+}
+
+.navbar-buttons {
+    @apply bg-transparent border-none text-white hover:text-[rgb(235,215,180)] text-xl focus:outline-none p-0 hover:scale-102 focus:scale-102
+}
+
+.white-textfield-on-red-background {
+    @apply hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1
+    border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400
+    sm:text-sm hover:scale-102 focus:scale-102
+}
+
+.white-button-on-red-background {
+    @apply hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-red-900 placeholder:text-gray-400 focus:outline-3 sm:text-sm hover:scale-102
+}
+
+.white-button-on-red-background-separated {
+    @apply hover:border-black flex-1 rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 sm:text-sm hover:scale-102
+}
+
+.headline-red-background {
+    @apply mt-10 text-center text-2xl font-bold text-white
+}
+
+.headline-white-background {
+    @apply text-center text-2xl font-bold text-[rgb(97,30,38)]
+}
+
+.login-links {
+    @apply font-semibold text-[rgb(207,185,151)] hover:text-[rgb(235,215,180)] focus:text-[rgb(207,185,151)] active:text-[rgb(207,185,151)] visited:text-[rgb(207,185,151)]
+}
+
+.white-font-left-aligned {
+    @apply block text-sm font-medium text-white
+}
+
+.white-font-center-aligned {
+    @apply text-center text-white
+}
+
+.red-font-center-aligned {
+    @apply text-center text-[rgb(97,30,38)]
+}
+
+.card-design-with-picture {
+    @apply w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 cursor-pointer hover:scale-105
+}
+
+.card-design-with-picture-bigger {
+    @apply w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 p-2 cursor-pointer hover:scale-105
+}

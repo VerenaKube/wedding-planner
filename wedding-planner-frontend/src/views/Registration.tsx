@@ -33,7 +33,7 @@ export default function Registration() {
                         </p>
                         <div className="mt-2">
                             <input
-                                className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                className="white-textfield-on-red-background"
                             />
                         </div>
                     </div>
@@ -43,7 +43,7 @@ export default function Registration() {
                         </p>
                         <div className="mt-2">
                             <input
-                                className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                className="white-textfield-on-red-background"
                             />
                         </div>
                     </div>
@@ -53,7 +53,7 @@ export default function Registration() {
                         </p>
                         <div className="mt-2">
                             <input
-                                className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                className="white-textfield-on-red-background"
                             />
                         </div>
                     </div>
@@ -63,7 +63,7 @@ export default function Registration() {
                         </p>
                         <div className="mt-2">
                             <input
-                                className="hover:border-black block w-full rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                className="white-textfield-on-red-background"
                             />
                         </div>
                     </div>
@@ -72,13 +72,13 @@ export default function Registration() {
                         <button
                             onClick={switchToLogin}
                             type="button"
-                            className="hover:!border-black flex-1 rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 focus:outline-white-600 sm:text-sm">
+                            className="white-button-on-red-background-separated">
                             Zurück zum Login
                         </button>
                         <button
                             onClick={switchToWelcome}
                             type="button"
-                            className="hover:!border-black flex-1 rounded-md bg-white px-3 py-1.5 text-base text-red-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-3 focus:outline-white-600 sm:text-sm">
+                            className="white-button-on-red-background-separated">
                             Registrieren
                         </button>
                     </div>

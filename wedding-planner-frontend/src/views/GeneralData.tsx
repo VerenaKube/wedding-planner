@@ -16,8 +16,8 @@ export default function GeneralData() {
     });
 
     const navigate = useNavigate();
-    const switchToHome = () => {
-        navigate('/home');
+    const switchToOverview = () => {
+        navigate('/overview');
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,7 @@ export default function GeneralData() {
             </div>
 
             <div className="fixed left-10 right-10 top-8 p-4 mt-22 text-center">
-                <h1 className="text-[rgb(97,30,38)]" style={{fontFamily: 'Bad Script, sans-serif'}}>
+                <h1 className="text-[rgb(97,30,38)]">
                     Allgemeine Daten
                 </h1>
                 <hr className="my-5 border-t-1" style={{borderTopColor: 'rgb(97,30,38)'}}/>
@@ -64,13 +64,12 @@ export default function GeneralData() {
                     <div className="mt-10 w-2/5">
                         <div className="space-y-4">
                             <div className="flex items-center mb-4">
-                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]"
-                                   style={{fontFamily: 'Bad Script, sans-serif'}}>
+                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]">
                                     Name eures Sitzplans
                                 </p>
                                 <div className="mt-2 flex-1 text-2xl">
                                     <input
-                                        className="hover:border-black block w-full text-2xl rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                        className="white-textfield-on-red-background"
                                         placeholder="Max und Marias Sitzplan"
                                         name="name"  // Das `name`-Attribut muss hier übereinstimmen
                                         value={seatingPlan.name}
@@ -79,13 +78,12 @@ export default function GeneralData() {
                                 </div>
                             </div>
                             <div className="flex items-center mb-4">
-                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]"
-                                   style={{fontFamily: 'Bad Script, sans-serif'}}>
+                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]">
                                     Datum eurer Hochzeit
                                 </p>
                                 <div className="mt-2 flex-1 text-2xl">
                                     <input
-                                        className="hover:border-black block w-full text-2xl rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                        className="white-textfield-on-red-background"
                                         placeholder="01.06.2025"
                                         name="weddingDate"  // Hier auch
                                         value={seatingPlan.weddingDate}
@@ -94,13 +92,12 @@ export default function GeneralData() {
                                 </div>
                             </div>
                             <div className="flex items-center mb-4">
-                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]"
-                                   style={{fontFamily: 'Bad Script, sans-serif'}}>
+                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]">
                                     Name der Braut
                                 </p>
                                 <div className="mt-2 flex-1 text-2xl">
                                     <input
-                                        className="hover:border-black block w-full text-2xl rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                        className="white-textfield-on-red-background"
                                         placeholder="Maria"
                                         name="bride"  // Hier auch
                                         value={seatingPlan.bride}
@@ -109,13 +106,12 @@ export default function GeneralData() {
                                 </div>
                             </div>
                             <div className="flex items-center mb-4">
-                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]"
-                                   style={{fontFamily: 'Bad Script, sans-serif'}}>
+                                <p className="block text-xl text-black flex-1 !text-[rgb(97,30,38)]">
                                     Name des Bräutigams
                                 </p>
                                 <div className="mt-2 flex-1 text-2xl">
                                     <input
-                                        className="hover:border-black block w-full text-2xl rounded-md bg-white px-3 py-1.5 text-base text-red-900 border-1 border-transparent outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline- focus:outline-white-600 sm:text-sm"
+                                        className="white-textfield-on-red-background"
                                         placeholder="Max"
                                         name="groom"  // Hier auch
                                         value={seatingPlan.groom}
@@ -128,10 +124,9 @@ export default function GeneralData() {
                     </div>
                     <div className="flex items-center mb-4 w-2/5 pt-6">
                         <button
-                            onClick={switchToHome}
+                            onClick={switchToOverview}
                             type="submit"
                             className="hover:!border-white !bg-[rgb(97,30,38)] text-white rounded-md hover:bg-[rgb(120,40,50)] flex justify-center w-full !text-xl"
-                            style={{fontFamily: 'Bad Script, sans-serif'}}
                         >
                             Weiter
                         </button>
