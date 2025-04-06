@@ -3,6 +3,7 @@ package de.swf.ehv.seatingplan.optimization;
 import de.swf.ehv.seatingplan.persistence.entities.Age;
 import de.swf.ehv.seatingplan.persistence.entities.Guest;
 import de.swf.ehv.seatingplan.persistence.entities.GuestCircle;
+import de.swf.ehv.seatingplan.persistence.entities.RuleType;
 import de.swf.ehv.seatingplan.persistence.entities.SeatingRule;
 import de.swf.ehv.seatingplan.persistence.entities.Seatingplan;
 import de.swf.ehv.seatingplan.persistence.entities.SeatingplanSolution;
@@ -48,7 +49,66 @@ public class SeatingplanSolutionGenerator {
     }
 
     private void distributeGuestsToTables(
-            List<GuestCircle> guestList, TableData tableData, List<SeatingRule> seatingRules, List<Table> tables) {}
+            List<GuestCircle> guestList, TableData tableData, List<SeatingRule> seatingRules, List<Table> tables) {
+        guestList.forEach(guestCircle -> {
+            var groups = getGroupsFromGuests(guestCircle.members());
+            var guestNames = getGuestNamesFromGuests(guestCircle.members());
+            var enemies = seatingRules.stream()
+                    .filter(seatingRule -> (guestNames.contains(
+                                            seatingRule.firstGuest().firstName() + " "
+                                                    + seatingRule.firstGuest().lastName())
+                                    || guestNames.contains(
+                                            seatingRule.secondGuest().firstName() + " "
+                                                    + seatingRule.secondGuest().lastName()))
+                            && seatingRule.ruleType().equals(RuleType.ENEMY))
+                    .map(seatingRule -> {
+                        if (guestNames.contains(seatingRule.firstGuest().firstName() + " "
+                                + seatingRule.firstGuest().lastName())) {
+                            return seatingRule.firstGuest().firstName() + " "
+                                    + seatingRule.firstGuest().lastName();
+                        }
+                        return seatingRule.secondGuest().firstName() + " "
+                                + seatingRule.secondGuest().lastName();
+                    })
+                    .toList();
+            // Check existing tables for optimal solution
+            var optimalTable = tables.stream()
+                    .filter(table -> tableData.seatsPerTable()
+                                    >= table.guests().size()
+                                            + guestCircle.members().size()
+                            && getGroupsFromGuests(table.guests().stream()
+                                            .flatMap(circle -> circle.members().stream())
+                                            .toList())
+                                    .stream()
+                                    .anyMatch(groups::contains)
+                            && getGuestNamesFromGuests(table.guests().stream()
+                                            .flatMap(circle -> circle.members().stream())
+                                            .toList())
+                                    .stream()
+                                    .anyMatch(enemies::contains))
+                    .findFirst();
+            if (optimalTable.isPresent()) {
+                optimalTable.get().guests().add(guestCircle);
+            } else {
+                // TODO expand
+                // Find next best table
+                // If no next best table exists create a new one
+                // If not possible throw exception
+            }
+        });
+    }
+
+    private List<String> getGroupsFromGuests(List<Guest> guests) {
+        return guests.stream()
+                .flatMap(guest -> guest.groups().stream().distinct())
+                .toList();
+    }
+
+    private List<String> getGuestNamesFromGuests(List<Guest> guests) {
+        return guests.stream()
+                .map(guest -> guest.firstName() + " " + guest.lastName())
+                .toList();
+    }
 
     private List<GuestCircle> shuffleGuestList(List<GuestCircle> guestList) {
         var guestCircles = new ArrayList<GuestCircle>();
