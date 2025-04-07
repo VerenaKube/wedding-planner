@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class SeatingplanSolutionEvaluator {
 
-    public Integer evaluateSeatingplanSolution(@Nonnull SeatingplanSolution seatingplanSolution) {
-        return 1;
-    }
+  public Integer evaluateSeatingplanSolution(@Nonnull SeatingplanSolution seatingplanSolution) {
+    return 1;
+  }
 }
