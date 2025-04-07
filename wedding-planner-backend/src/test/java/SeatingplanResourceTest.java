@@ -10,23 +10,23 @@ import org.testcontainers.containers.MongoDBContainer;
 @QuarkusTest
 class SeatingplanResourceTest {
 
-    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0.5");
+  private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0.5");
 
-    @BeforeAll
-    static void setUp() {
-        mongoDBContainer.start();
-        System.setProperty("quarkus.mongodb.connection-string", mongoDBContainer.getReplicaSetUrl());
-    }
+  @BeforeAll
+  static void setUp() {
+    mongoDBContainer.start();
+    System.setProperty("quarkus.mongodb.connection-string", mongoDBContainer.getReplicaSetUrl());
+  }
 
-    @AfterAll
-    static void tearDown() {
-        mongoDBContainer.stop();
-    }
+  @AfterAll
+  static void tearDown() {
+    mongoDBContainer.stop();
+  }
 
-    @Test
-    void testCreateSeatingplan() {
-        var seatingplanCreationRequest =
-                """
+  @Test
+  void testCreateSeatingplan() {
+    var seatingplanCreationRequest =
+        """
         {
             "name": "First Example",
             "bride": "Verena",
@@ -34,17 +34,18 @@ class SeatingplanResourceTest {
             "weddingDate": "2025-05-05"
         }
         """;
-        var seatingplanId = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(seatingplanCreationRequest)
-                .when()
-                .post("/seatingplans")
-                .then()
-                .statusCode(201)
-                .extract()
-                .body()
-                .asString();
+    var seatingplanId =
+        RestAssured.given()
+            .contentType(ContentType.JSON)
+            .body(seatingplanCreationRequest)
+            .when()
+            .post("/seatingplans")
+            .then()
+            .statusCode(201)
+            .extract()
+            .body()
+            .asString();
 
-        Assertions.assertThat(seatingplanId).isNotNull();
-    }
+    Assertions.assertThat(seatingplanId).isNotNull();
+  }
 }
