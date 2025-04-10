@@ -103,10 +103,43 @@ public class SeatingplanSolutionGenerator {
           if (optimalTable.isPresent()) {
             optimalTable.get().guests().add(guestCircle);
           } else {
-            // TODO expand
             // Find next best table
-            // If no next best table exists create a new one
-            // If not possible throw exception
+            var nextBestTable =
+                tables.stream()
+                    .filter(
+                        table ->
+                            FILTERS
+                                    .get(FilterName.FREE_SEATS_ON_TABLE)
+                                    .apply(guestCircle, seatingplan, table)
+                                && (FILTERS
+                                        .get(FilterName.OTHER_GUESTS_OF_SAME_GROUP_ON_TABLE)
+                                        .apply(guestCircle, seatingplan, table)
+                                    || FILTERS
+                                        .get(FilterName.NO_ENEMIES_ON_TABLE)
+                                        .apply(guestCircle, seatingplan, table)))
+                    .findFirst();
+            if (nextBestTable.isPresent()) {
+              nextBestTable.get().guests().add(guestCircle);
+            } else {
+              if (tables.size() < seatingplan.getTableData().numberOfTables()) {
+                var members = new ArrayList<GuestCircle>();
+                members.add(guestCircle);
+                tables.add(new Table(tables.size() + 1, members));
+              } else {
+                tables.stream()
+                    .filter(
+                        table ->
+                            FILTERS
+                                .get(FilterName.FREE_SEATS_ON_TABLE)
+                                .apply(guestCircle, seatingplan, table))
+                    .findFirst()
+                    .ifPresentOrElse(
+                        table -> table.guests().add(guestCircle),
+                        () -> {
+                          throw new IllegalArgumentException("No available table for guests found");
+                        });
+              }
+            }
           }
         });
   }

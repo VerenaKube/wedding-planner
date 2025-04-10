@@ -18,14 +18,15 @@ public class SeatingplanOptimizer {
   private final SeatingplanSolutionEvaluator seatingplanSolutionEvaluator;
 
   public SeatingplanSolution optimize(@Nonnull Seatingplan seatingplan) {
-    var solutions = generateSolutions(seatingplan, 100);
-    for (int i = 0; i < 20; i++) {
-      var solutionRatings = rateSeatingplanSolutions(solutions);
-      solutions = evolveSeatingplanSolutions(solutionRatings);
-      solutions = mutateSeatingplanSolutions(solutions);
-      solutions.addAll(generateSolutions(seatingplan, 100 - solutions.size()));
-    }
-    return findBestSeatingplanSolution(rateSeatingplanSolutions(solutions));
+    var solutions = generateSolutions(seatingplan, 1);
+    return solutions.getFirst();
+    //    for (int i = 0; i < 20; i++) {
+    //      var solutionRatings = rateSeatingplanSolutions(solutions);
+    //      solutions = evolveSeatingplanSolutions(solutionRatings);
+    //      solutions = mutateSeatingplanSolutions(solutions);
+    //      solutions.addAll(generateSolutions(seatingplan, 100 - solutions.size()));
+    //    }
+    //    return findBestSeatingplanSolution(rateSeatingplanSolutions(solutions));
   }
 
   private List<SeatingplanSolution> generateSolutions(Seatingplan seatingplan, int amount) {

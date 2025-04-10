@@ -14,6 +14,11 @@ public class SeatingplanResource implements SeatingplanApi {
   private final SeatingplanService service;
 
   @Override
+  public Response getAllSeatingplans() {
+    return Response.status(200).entity(service.getAllSeatingplans()).build();
+  }
+
+  @Override
   public Response createSeatingplan(SeatingplanCreationRequest seatingplanCreationRequest) {
     return Response.status(Response.Status.CREATED)
         .entity(service.createSeatingplan(seatingplanCreationRequest))
@@ -26,7 +31,7 @@ public class SeatingplanResource implements SeatingplanApi {
   }
 
   @Override
-  public Response update(UUID id, SeatingplanDto seatingplan) {
+  public Response updateSeatingplan(UUID id, SeatingplanDto seatingplan) {
     // TODO add validation to check if the given id matches the id of the given seatingplan
     service.updateSeatingplan(seatingplan);
     return Response.status(204, "Seatingplan with id " + id + " successfully updated").build();
@@ -42,6 +47,13 @@ public class SeatingplanResource implements SeatingplanApi {
   public Response validateSeatingplan(UUID id) {
     return Response.status(200, "Seatingplan successfully validated")
         .entity(service.validateSeatingplan(id))
+        .build();
+  }
+
+  @Override
+  public Response generateSeatingplanSolution(UUID id) {
+    return Response.status(200, "Seatingplan solution successfully created")
+        .entity(service.generateSeatingplanSolution(id))
         .build();
   }
 }

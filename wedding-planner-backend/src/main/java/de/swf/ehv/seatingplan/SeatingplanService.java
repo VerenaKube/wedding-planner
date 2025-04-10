@@ -2,11 +2,13 @@ package de.swf.ehv.seatingplan;
 
 import de.swf.ehv.planner.generated.api.model.SeatingplanCreationRequest;
 import de.swf.ehv.planner.generated.api.model.SeatingplanDto;
+import de.swf.ehv.planner.generated.api.model.SeatingplanSolutionDto;
 import de.swf.ehv.planner.generated.api.model.ValidationResponse;
 import de.swf.ehv.seatingplan.optimization.SeatingplanOptimizer;
 import de.swf.ehv.seatingplan.persistence.SeatingplanRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,10 @@ public class SeatingplanService {
   private final SeatingplanOptimizer optimizer;
 
   private final SeatingplanMapper mapper;
+
+  public List<SeatingplanDto> getAllSeatingplans() {
+    return repository.findAll().stream().map(mapper::fromSeatingplan).toList();
+  }
 
   public UUID createSeatingplan(SeatingplanCreationRequest seatingplanCreationRequest) {
     var seatingplan = mapper.toSeatingplan(seatingplanCreationRequest);
@@ -62,10 +68,8 @@ public class SeatingplanService {
     return ValidationResponse.builder().messages(messages).build();
   }
 
-  // TODO fix return
-  public void generateSeatingplanSolution(UUID id) {
+  public SeatingplanSolutionDto generateSeatingplanSolution(UUID id) {
     var seatingplan = repository.findByIdOptional(id).orElseThrow();
-    var solution = optimizer.optimize(seatingplan);
-    // TODO map solution to dto and return
+    return mapper.fromSeatingplanSolution(optimizer.optimize(seatingplan));
   }
 }
