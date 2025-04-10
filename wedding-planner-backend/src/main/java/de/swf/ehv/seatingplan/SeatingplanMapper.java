@@ -6,7 +6,9 @@ import de.swf.ehv.planner.generated.api.model.GuestMinimalDto;
 import de.swf.ehv.planner.generated.api.model.SeatingRuleDto;
 import de.swf.ehv.planner.generated.api.model.SeatingplanCreationRequest;
 import de.swf.ehv.planner.generated.api.model.SeatingplanDto;
+import de.swf.ehv.planner.generated.api.model.SeatingplanSolutionDto;
 import de.swf.ehv.planner.generated.api.model.TableDataDto;
+import de.swf.ehv.planner.generated.api.model.TableDto;
 import de.swf.ehv.seatingplan.persistence.entities.Age;
 import de.swf.ehv.seatingplan.persistence.entities.Guest;
 import de.swf.ehv.seatingplan.persistence.entities.GuestCircle;
@@ -14,10 +16,13 @@ import de.swf.ehv.seatingplan.persistence.entities.GuestMinimal;
 import de.swf.ehv.seatingplan.persistence.entities.RuleType;
 import de.swf.ehv.seatingplan.persistence.entities.SeatingRule;
 import de.swf.ehv.seatingplan.persistence.entities.Seatingplan;
+import de.swf.ehv.seatingplan.persistence.entities.SeatingplanSolution;
+import de.swf.ehv.seatingplan.persistence.entities.Table;
 import de.swf.ehv.seatingplan.persistence.entities.TableData;
 import de.swf.ehv.seatingplan.persistence.entities.TableType;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -78,7 +83,7 @@ public class SeatingplanMapper {
 
   private SeatingRule toSeatingRule(SeatingRuleDto seatingRuleDto) {
     return new SeatingRule(
-        seatingRuleDto.getId(),
+        Optional.ofNullable(seatingRuleDto.getId()).orElse(UUID.randomUUID()),
         RuleType.valueOf(seatingRuleDto.getRuleType().toString()),
         toGuestMinimal(seatingRuleDto.getFirstGuest()),
         toGuestMinimal(seatingRuleDto.getSecondGuest()));
@@ -86,6 +91,24 @@ public class SeatingplanMapper {
 
   private GuestMinimal toGuestMinimal(GuestMinimalDto guestMinimalDto) {
     return new GuestMinimal(guestMinimalDto.getFirstName(), guestMinimalDto.getLastName());
+  }
+
+  public SeatingplanSolutionDto fromSeatingplanSolution(SeatingplanSolution seatingplanSolution) {
+    return SeatingplanSolutionDto.builder()
+        .id(seatingplanSolution.getId())
+        .tables(fromTables(seatingplanSolution.getTables()))
+        .build();
+  }
+
+  private List<TableDto> fromTables(List<Table> tables) {
+    return tables.stream().map(this::fromTable).collect(Collectors.toList());
+  }
+
+  private TableDto fromTable(Table table) {
+    return TableDto.builder()
+        .tableNumber(table.tableNumber())
+        .guests(fromGuestList(table.guests()))
+        .build();
   }
 
   public SeatingplanDto fromSeatingplan(Seatingplan seatingplan) {
@@ -135,6 +158,7 @@ public class SeatingplanMapper {
 
   private SeatingRuleDto fromSeatingRule(SeatingRule seatingRule) {
     return SeatingRuleDto.builder()
+        .id(seatingRule.id())
         .ruleType(
             de.swf.ehv.planner.generated.api.model.RuleType.valueOf(
                 seatingRule.ruleType().toString()))

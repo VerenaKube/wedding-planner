@@ -23,6 +23,21 @@ paths:
               schema:
                 type: string
                 format: uuid
+    get:
+      tags:
+        - Seatingplan
+      summary: Returns all seatingplans
+      operationId: getAllSeatingplans
+      responses:
+        "200":
+          description: All seatingplans found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SeatingplanDto"
+
 
   /seatingplans/{id}:
     get:
@@ -50,7 +65,7 @@ paths:
       tags:
         - Seatingplan
       summary: Updates a seatingplan for a given id
-      operationId: Update
+      operationId: updateSeatingplan
       parameters:
         - name: id
           in: path
@@ -113,6 +128,31 @@ paths:
           description: "Seatingplan for the given id not found"
         "412":
           description: "Seatingplan is not completed. No validation possible."
+
+  /seatingplans/{id}/solutions:
+    get:
+      tags:
+        - Seatingplan
+      summary: Creates a good seatingplan
+      operationId: generateSeatingplanSolution
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: "Solution found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeatingplanSolutionDto"
+        "404":
+          description: "No seatingplan found for given id"
+        "500":
+          description: "Generation of solution for seatingplan failed"
 
 components:
   schemas:
@@ -236,3 +276,22 @@ components:
           type: array
           items:
             type: string
+
+    SeatingplanSolutionDto:
+      properties:
+        id:
+          type: string
+          format: uuid
+        tables:
+          type: array
+          items:
+            $ref: "#/components/schemas/TableDto"
+
+    TableDto:
+      properties:
+        tableNumber:
+          type: integer
+        guests:
+          type: array
+          items:
+            $ref: "#/components/schemas/GuestCircleDto"
