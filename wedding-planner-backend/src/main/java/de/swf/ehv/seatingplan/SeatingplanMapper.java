@@ -21,6 +21,7 @@ import de.swf.ehv.seatingplan.persistence.entities.Table;
 import de.swf.ehv.seatingplan.persistence.entities.TableData;
 import de.swf.ehv.seatingplan.persistence.entities.TableType;
 import jakarta.enterprise.context.ApplicationScoped;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,7 +54,9 @@ public class SeatingplanMapper {
   }
 
   private List<GuestCircle> toGuestList(List<GuestCircleDto> guestList) {
-    return guestList.stream().map(this::toGuestCircle).collect(Collectors.toList());
+    return Optional.ofNullable(guestList)
+        .map(circles -> circles.stream().map(this::toGuestCircle).collect(Collectors.toList()))
+        .orElse(Collections.emptyList());
   }
 
   private GuestCircle toGuestCircle(GuestCircleDto guestCircleDto) {
@@ -71,14 +74,20 @@ public class SeatingplanMapper {
   }
 
   private TableData toTableData(TableDataDto tableDataDto) {
-    return new TableData(
-        TableType.valueOf(tableDataDto.getType().toString()),
-        tableDataDto.getSeatsPerTable(),
-        tableDataDto.getNumberOfTables());
+    return Optional.ofNullable(tableDataDto)
+        .map(
+            dto ->
+                new TableData(
+                    TableType.valueOf(dto.getType().toString()),
+                    dto.getSeatsPerTable(),
+                    dto.getNumberOfTables()))
+        .orElse(null);
   }
 
   private List<SeatingRule> toSeatingRules(List<SeatingRuleDto> seatingRuleDtoList) {
-    return seatingRuleDtoList.stream().map(this::toSeatingRule).collect(Collectors.toList());
+    return Optional.ofNullable(seatingRuleDtoList)
+        .map(rules -> rules.stream().map(this::toSeatingRule).collect(Collectors.toList()))
+        .orElse(Collections.emptyList());
   }
 
   private SeatingRule toSeatingRule(SeatingRuleDto seatingRuleDto) {
@@ -94,14 +103,20 @@ public class SeatingplanMapper {
   }
 
   public SeatingplanSolutionDto fromSeatingplanSolution(SeatingplanSolution seatingplanSolution) {
-    return SeatingplanSolutionDto.builder()
-        .id(seatingplanSolution.getId())
-        .tables(fromTables(seatingplanSolution.getTables()))
-        .build();
+    return Optional.ofNullable(seatingplanSolution)
+        .map(
+            solution ->
+                SeatingplanSolutionDto.builder()
+                    .id(solution.getId())
+                    .tables(fromTables(solution.getTables()))
+                    .build())
+        .orElse(null);
   }
 
   private List<TableDto> fromTables(List<Table> tables) {
-    return tables.stream().map(this::fromTable).collect(Collectors.toList());
+    return Optional.ofNullable(tables)
+        .map(t -> t.stream().map(this::fromTable).collect(Collectors.toList()))
+        .orElse(Collections.emptyList());
   }
 
   private TableDto fromTable(Table table) {
@@ -125,7 +140,9 @@ public class SeatingplanMapper {
   }
 
   private List<GuestCircleDto> fromGuestList(List<GuestCircle> guestList) {
-    return guestList.stream().map(this::fromGuestCircle).toList();
+    return Optional.ofNullable(guestList)
+        .map(guests -> guests.stream().map(this::fromGuestCircle).collect(Collectors.toList()))
+        .orElse(Collections.emptyList());
   }
 
   private GuestCircleDto fromGuestCircle(GuestCircle guestCircle) {
@@ -145,15 +162,23 @@ public class SeatingplanMapper {
   }
 
   private TableDataDto fromTableData(TableData tableData) {
-    return TableDataDto.builder()
-        .numberOfTables(tableData.numberOfTables())
-        .seatsPerTable(tableData.seatsPerTable())
-        .type(de.swf.ehv.planner.generated.api.model.TableType.valueOf(tableData.type().toString()))
-        .build();
+    return Optional.ofNullable(tableData)
+        .map(
+            data ->
+                TableDataDto.builder()
+                    .numberOfTables(data.numberOfTables())
+                    .seatsPerTable(data.seatsPerTable())
+                    .type(
+                        de.swf.ehv.planner.generated.api.model.TableType.valueOf(
+                            data.type().toString()))
+                    .build())
+        .orElse(null);
   }
 
   private List<SeatingRuleDto> fromSeatingRules(List<SeatingRule> seatingRules) {
-    return seatingRules.stream().map(this::fromSeatingRule).collect(Collectors.toList());
+    return Optional.ofNullable(seatingRules)
+        .map(rules -> rules.stream().map(this::fromSeatingRule).collect(Collectors.toList()))
+        .orElse(Collections.emptyList());
   }
 
   private SeatingRuleDto fromSeatingRule(SeatingRule seatingRule) {
