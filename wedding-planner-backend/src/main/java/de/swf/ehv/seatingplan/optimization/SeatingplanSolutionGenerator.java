@@ -29,7 +29,8 @@ public class SeatingplanSolutionGenerator {
         FilterName.FREE_SEATS_ON_TABLE,
         (guestCircle, seatingplan, table) ->
             seatingplan.getTableData().seatsPerTable()
-                >= table.guests().size() + guestCircle.members().size());
+                >= table.guests().stream().mapToInt(circle -> circle.members().size()).sum()
+                    + guestCircle.members().size());
     FILTERS.put(
         FilterName.OTHER_GUESTS_OF_SAME_GROUP_ON_TABLE,
         ((guestCircle, seatingplan, table) ->
@@ -176,7 +177,7 @@ public class SeatingplanSolutionGenerator {
   }
 
   private List<GuestCircle> shuffleGuestList(List<GuestCircle> guestList) {
-    var guestCircles = new ArrayList<GuestCircle>();
+    var guestCircles = new ArrayList<GuestCircle>(Collections.nCopies(guestList.size(), null));
     Collections.copy(guestCircles, guestList);
     Collections.shuffle(guestCircles);
     return guestCircles;
