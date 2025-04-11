@@ -20,4 +20,12 @@ public class SeatingplanSolution extends PanacheMongoEntityBase {
   @BsonId private UUID id;
 
   private List<Table> tables;
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Solution: ").append(id).append(":").append("\n");
+    tables.forEach(table -> builder.append(table.toString()).append("\n"));
+    return builder.toString();
+  }
 }

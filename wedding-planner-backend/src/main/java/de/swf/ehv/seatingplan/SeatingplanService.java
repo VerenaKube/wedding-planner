@@ -70,6 +70,8 @@ public class SeatingplanService {
 
   public SeatingplanSolutionDto generateSeatingplanSolution(UUID id) {
     var seatingplan = repository.findByIdOptional(id).orElseThrow();
-    return mapper.fromSeatingplanSolution(optimizer.optimize(seatingplan));
+    var solution = optimizer.optimize(seatingplan);
+    System.out.println(solution);
+    return mapper.fromSeatingplanSolution(solution);
   }
 }
