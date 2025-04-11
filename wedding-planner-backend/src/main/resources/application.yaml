@@ -8,7 +8,6 @@ quarkus:
       origins: "http://localhost:5173"
       methods: GET,POST,PUT,DELETE,OPTIONS
       headers: accept, authorization, content-type, x-requested-with
-      credentials: false
   mongodb:
     connection-string: "mongodb://root:IAmUnsecure@localhost:27017/weddingDB?authSource=admin"
     database: weddingDB
