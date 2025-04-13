@@ -18,7 +18,7 @@ const AgeAliases = {
 const Card = ({circle, onEdit}: { circle: GuestCircleDto, onEdit: () => void }) => {
     return (
         <div
-            className="bg-[rgb(97,30,38)] shadow-lg rounded-xl p-6 w-full max-w-md text-white min-h-30 min-w-60 relative group"
+            className="bg-[rgb(97,30,38)] shadow-lg rounded-xl p-4 w-full max-w-md text-white min-h-20 min-w-60 relative group"
         >
             <div className="flex justify-between items-center">
                 <p className="text-white text-lg font-semibold text-left">{circle.name}'s Gruppe</p>
@@ -206,16 +206,20 @@ export default function Guests() {
 
         if (allGuests.length > 0) {
             if (editIndex !== null && seatingPlan?.guestList?.[editIndex]) {
-                // Ersetze den existierenden Circle
+                // Entferne alten GuestCircle
                 const updatedGuestList = [...seatingPlan.guestList];
-                updatedGuestList[editIndex] = {name: guest.firstName, members: allGuests};
+                updatedGuestList.splice(editIndex, 1); // löschen
                 seatingPlan.guestList = updatedGuestList;
+
+                // Füge neuen Circle hinzu
+                addGuestCircle(guest, familyMembers);
             } else {
                 // Füge neuen Circle hinzu
                 addGuestCircle(guest, familyMembers);
             }
         }
 
+        // Reset state
         setGuest({firstName: '', lastName: '', age: undefined, groups: []});
         setFamilyMembers([]);
         setFamilyGroupInputs([]);
@@ -240,7 +244,7 @@ export default function Guests() {
         <div>
             <NavBar/>
             <button
-                className="fixed top-0 left-0 -translate-y-1/2 z-999 mt-37  hover:!border-white !bg-[rgb(97,30,38)] text-white rounded-md  flex justify-center w-1/6 !text-xl ml-12 hover:!scale-102"
+                className="fixed bottom-0 left-0 -translate-y-1/2 z-999 mb-5 mt-30 hover:!border-white !bg-[rgb(97,30,38)] text-white rounded-md  flex justify-center w-1/6 !text-xl ml-12 hover:!scale-102"
                 onClick={switchToOverview}
             >
 
@@ -249,10 +253,10 @@ export default function Guests() {
 
             <div className="w-screen flex flex-col items-center mt-25">
                 <div
-                    className="bg-[rgb(97,30,38)] shadow-lg rounded-xl p-4 w-100 text-center text-sm flex flex-col justify-start max-w-xl">
+                    className="bg-[rgb(97,30,38)] shadow-lg rounded-xl p-4 w-90 text-center text-sm flex flex-col justify-start max-w-xl">
                     <div className="flex-grow">
                         <p className="text-white text-lg">Gast hinzufügen</p>
-                        <hr className="mt-2 border-white"/>
+                        <hr className="mt-1 border-white"/>
 
                         {/* Gast Eingabe */}
                         <input
@@ -261,7 +265,7 @@ export default function Guests() {
                             placeholder="Vorname"
                             value={guest.firstName}
                             onChange={handleInputChange}
-                            className="w-full p-2 mt-3 mb-2 border border-white rounded bg-transparent text-white placeholder-white"
+                            className="w-full p-2 mt-2 mb-1 border border-white rounded bg-transparent text-white placeholder-white"
                         />
                         <input
                             type="text"
@@ -269,13 +273,13 @@ export default function Guests() {
                             placeholder="Nachname"
                             value={guest.lastName}
                             onChange={handleInputChange}
-                            className="w-full p-2 mb-2 border border-white rounded bg-transparent text-white placeholder-white"
+                            className="w-full p-1 mb-1 border border-white rounded bg-transparent text-white placeholder-white"
                         />
                         <select
                             name="age"
                             value={guest.age || ''}
                             onChange={handleAgeChange}
-                            className="w-full h-10 px-3 mb-2 border border-white rounded bg-transparent text-white"
+                            className="w-full h-10 px-2 mb-2 border border-white rounded bg-transparent text-white"
                         >
                             <option value="">Alter wählen</option>
                             {Object.values(Age).map((age) => (
@@ -286,7 +290,7 @@ export default function Guests() {
                         </select>
 
                         {/* Gruppe hinzufügen Abschnitt für Gast */}
-                        <div className="mt-4">
+                        <div>
                             <div className="flex items-center justify-center mb-2">
                                 <p className="text-white font-semibold">Gruppe hinzufügen</p>
                             </div>
@@ -444,7 +448,7 @@ export default function Guests() {
                 </div>
 
                 {/* GuestCircle Cards */}
-                <div className="w-full flex flex-col justify-center mt-20 mb-30">
+                <div className="w-full flex flex-col justify-center mt-10 mb-30">
                     <div className="sm:mx-auto">
                         <div
                             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">

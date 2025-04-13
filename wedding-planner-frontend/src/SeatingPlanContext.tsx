@@ -12,6 +12,7 @@ interface SeatingPlanContextType {
     updateTableData: (tableData: TableDataDto) => void;
     updateGeneralData: (name: string, weddingDate: string, bride: string, groom: string) => void;
     setSeatingPlanUUID: (uuid: string) => void;
+    removeSeatingRule: (index: number) => void;
     setSeatingPlan: (plan: SeatingplanDto) => void;
 }
 
@@ -85,10 +86,20 @@ export const SeatingPlanProvider: React.FC<SeatingPlanProviderProps> = ({childre
         }
     };
 
+    const removeSeatingRule = (index: number) => {
+        setSeatingPlan(prevPlan => {
+            const updatedRules = [...(prevPlan.seatingRules || [])];
+            updatedRules.splice(index, 1);
+            const updated = {...prevPlan, seatingRules: updatedRules};
+            syncWithBackend(updated);
+            return updated;
+        });
+    };
+
+
     // Funktion zum Hinzufügen einer neuen Sitzregel
     const addSeatingRule = (firstGuest: GuestDto, secondGuest: GuestDto, ruleType: 'FRIEND' | 'ENEMY') => {
         const newRule: SeatingRuleDto = {
-            id: new Date().toISOString(),
             firstGuest: {
                 firstName: firstGuest.firstName,
                 lastName: firstGuest.lastName,
@@ -100,10 +111,19 @@ export const SeatingPlanProvider: React.FC<SeatingPlanProviderProps> = ({childre
             ruleType,
         };
 
-        setSeatingPlan(prevPlan => ({
-            ...prevPlan,
-            seatingRules: [...(prevPlan.seatingRules || []), newRule],
-        }));
+        setSeatingPlan(prevPlan => {
+            console.log("Previous:", prevPlan);
+            console.log("New Rule:", newRule);
+            const updated = {
+                ...prevPlan,
+                seatingRules: [...(prevPlan.seatingRules || []), newRule],
+            };
+            console.log("Updated:", updated);
+            syncWithBackend(updated);
+            return updated;
+        });
+
+
     };
 
     // Funktion zum Aktualisieren der Tischdaten
@@ -182,6 +202,7 @@ export const SeatingPlanProvider: React.FC<SeatingPlanProviderProps> = ({childre
                 updateGeneralData,
                 updateGuestCircle,
                 setSeatingPlanUUID,
+                removeSeatingRule,
                 setSeatingPlan: setSeatingPlanContext,  // Benutze den neuen Namen
             }}
         >

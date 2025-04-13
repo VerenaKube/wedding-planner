@@ -70,7 +70,7 @@ export default function GeneralData() {
             <NavBar/>
 
             <button
-                className="fixed top-0 left-0 -translate-y-1/2 z-999 mt-37  hover:!border-white !bg-[rgb(97,30,38)] text-white rounded-md  flex justify-center w-1/6 !text-xl ml-12 hover:!scale-102"
+                className="fixed bottom-0 left-0 -translate-y-1/2 z-999 mb-5 mt-30 hover:!border-white !bg-[rgb(97,30,38)] text-white rounded-md  flex justify-center w-1/6 !text-xl ml-12 hover:!scale-102"
                 onClick={switchToOverview}
             >
 

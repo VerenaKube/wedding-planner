@@ -4,6 +4,10 @@
     @apply hover:border-black px-4 py-2 bg-[rgb(97,30,38)] text-white rounded-xl p-0 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 sm:text-sm hover:scale-102
 }
 
+.white-button {
+    @apply hover:border-[rgb(97,30,38)] px-2 py-2 text-white rounded-xl p-0 outline-1 outline-offset-1 outline-[rgb(97,30,38)] focus:outline-2 sm:text-sm hover:scale-102
+}
+
 .navbar-buttons {
     @apply bg-transparent border-none text-white hover:text-[rgb(235,215,180)] text-xl focus:outline-none p-0 hover:scale-102 focus:scale-102
 }
@@ -67,4 +71,31 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.connected-guests-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.connection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.connection p {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.connection span {
+    margin: 0 5px;
+    color: red; /* Du kannst das Symbol nach Belieben anpassen */
 }
