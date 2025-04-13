@@ -8,11 +8,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-api-client": "openapi-generator-cli generate -i ../api/api.yaml -g typescript-axios -o src/api-client"
+    "generate-api-client": "openapi-generator-cli generate -i ../api/openapi.yaml -g typescript-axios -o src/api-client"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@material-tailwind/react": "^2.1.10",
     "@tailwindcss/vite": "^4.0.14",
     "axios": "^1.8.4",
     "lucide-react": "^0.486.0",

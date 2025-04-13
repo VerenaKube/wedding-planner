@@ -47,7 +47,7 @@ export default function SeatingPlanOverview() {
                             <div className="h-1/2 flex flex-col justify-center items-center px-6 py-4">
                                 <div className="font-bold text-xl mb-2 text-center text-white">Allgemeine Daten</div>
                                 <p className="text-white text-base text-center">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
+                                    Gebt gerne die Randdaten eurer Hochzeit ein!
                                 </p>
                             </div>
                         </div>
@@ -63,7 +63,8 @@ export default function SeatingPlanOverview() {
                             <div className="h-1/2 flex flex-col justify-center items-center px-6 py-4">
                                 <div className="font-bold text-xl mb-2 text-center text-white">Gästeliste</div>
                                 <p className="text-white text-base text-center">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
+                                    Hier könnt ihr eure Gäste hinzufügen. Ihr habt einen Freundeskreis? Kein Problem,
+                                    das könnt ihr hier angeben!
                                 </p>
                             </div>
                         </div>
@@ -80,7 +81,7 @@ export default function SeatingPlanOverview() {
                             <div className="h-1/2 flex flex-col justify-center items-center px-6 py-4">
                                 <div className="font-bold text-xl mb-2 text-center text-white">Sonderregeln</div>
                                 <p className="text-white text-base text-center">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
+                                    Wer soll auf jeden Fall zusammensitzen? Und wer lieber nicht? Teilt es uns mit!
                                 </p>
                             </div>
                         </div>
@@ -97,7 +98,7 @@ export default function SeatingPlanOverview() {
                             <div className="h-1/2 flex flex-col justify-center items-center px-6 py-4">
                                 <div className="font-bold text-xl mb-2 text-center text-white">Tische</div>
                                 <p className="text-white text-base text-center">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
+                                    Freistehend oder Tafel? Rund oder eckig? Wir wollen es wissen!
                                 </p>
                             </div>
                         </div>
@@ -114,7 +115,8 @@ export default function SeatingPlanOverview() {
                             <div className="h-1/2 flex flex-col justify-center items-center px-6 py-4">
                                 <div className="font-bold text-2xl mb-2 text-center text-white">Ergebnis</div>
                                 <p className="text-white text-base text-center">
-                                    Hier könnt ihr euren Sitzplan einsehen und verändern!
+                                    Wir freuen uns euch euren Sitzplan zu zeigen! Ihr habt noch Änderungen? Kein
+                                    Problem, ihr könnt eure Gäste hier noch verschieben!
                                 </p>
                             </div>
                         </div>
