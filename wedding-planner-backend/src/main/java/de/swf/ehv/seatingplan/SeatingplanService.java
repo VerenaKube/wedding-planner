@@ -7,11 +7,12 @@ import de.swf.ehv.planner.generated.api.model.ValidationResponse;
 import de.swf.ehv.seatingplan.optimization.SeatingplanOptimizer;
 import de.swf.ehv.seatingplan.persistence.SeatingplanRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import lombok.RequiredArgsConstructor;
 
 @ApplicationScoped
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class SeatingplanService {
   }
 
   public void deleteSeatingplan(UUID id) {
-    if (repository.deleteById(id)) {
+    if (!repository.deleteById(id)) {
       throw new NoSuchElementException("Seatingplan with id " + id + " not found");
     }
   }

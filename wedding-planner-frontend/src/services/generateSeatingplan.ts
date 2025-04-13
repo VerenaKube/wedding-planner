@@ -46,3 +46,12 @@ export async function getSeatingPlanById(id: string): Promise<SeatingplanDto> {
         throw new Error("Fehler beim Abrufen des Sitzplans");
     }
 }
+
+export async function deleteSeatingplan(id: string): Promise<void> {
+    try {
+        await apiClient.deleteSeatingplan(id);  // Verwende die API-Funktion, um den Sitzplan nach ID zu holen
+    } catch (error) {
+        console.error("Fehler beim Abrufen des Sitzplans:", error);
+        throw new Error("Fehler beim Abrufen des Sitzplans");
+    }
+}
