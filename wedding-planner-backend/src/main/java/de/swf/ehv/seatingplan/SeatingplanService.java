@@ -7,12 +7,12 @@ import de.swf.ehv.planner.generated.api.model.ValidationResponse;
 import de.swf.ehv.seatingplan.optimization.SeatingplanOptimizer;
 import de.swf.ehv.seatingplan.persistence.SeatingplanRepository;
 import jakarta.enterprise.context.ApplicationScoped;
-import lombok.RequiredArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @ApplicationScoped
 @RequiredArgsConstructor
@@ -53,19 +53,20 @@ public class SeatingplanService {
     var seatingplan = repository.findByIdOptional(id).orElseThrow();
     var messages = new ArrayList<String>();
 
-    var numberOfGuests =
-        seatingplan.getGuestList().stream()
-            .mapToInt(guestCircle -> guestCircle.members().size())
-            .sum();
-    var numberOfSeats =
-        seatingplan.getTableData().numberOfTables() * seatingplan.getTableData().seatsPerTable();
+    var guestList = Optional.ofNullable(seatingplan.getGuestList());
+    var tableData = Optional.ofNullable(seatingplan.getTableData());
+    if (guestList.isPresent() && tableData.isPresent()) {
+      var numberOfGuests =
+          guestList.get().stream().mapToInt(guestCircle -> guestCircle.members().size()).sum();
+      var numberOfSeats =
+          tableData.get().numberOfTables() * seatingplan.getTableData().seatsPerTable();
 
-    if (numberOfGuests > numberOfSeats) {
-      messages.add("Not enough seats for the given number of guests");
+      if (numberOfGuests > numberOfSeats) {
+        messages.add("Not enough seats for the given number of guests");
+      }
+    } else {
+      messages.add("The seatingplan is not complete");
     }
-
-    // TODO add more validations
-
     return ValidationResponse.builder().messages(messages).build();
   }
 
