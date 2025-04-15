@@ -32,7 +32,6 @@ public class SeatingplanResource implements SeatingplanApi {
 
   @Override
   public Response updateSeatingplan(UUID id, SeatingplanDto seatingplan) {
-    // TODO add validation to check if the given id matches the id of the given seatingplan
     service.updateSeatingplan(seatingplan);
     return Response.status(204, "Seatingplan with id " + id + " successfully updated").build();
   }

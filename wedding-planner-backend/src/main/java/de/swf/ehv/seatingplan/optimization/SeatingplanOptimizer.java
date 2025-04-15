@@ -16,17 +16,18 @@ public class SeatingplanOptimizer {
 
   private final SeatingplanSolutionGenerator solutionGenerator;
   private final SeatingplanSolutionEvaluator seatingplanSolutionEvaluator;
+  private final SeatingplanEvolver seatingplanEvolver;
+  private final SeatingplanMutator seatingplanMutator;
 
   public SeatingplanSolution optimize(@Nonnull Seatingplan seatingplan) {
     var solutions = generateSolutions(seatingplan, 1);
-    return solutions.getFirst();
-    //    for (int i = 0; i < 20; i++) {
-    //      var solutionRatings = rateSeatingplanSolutions(solutions);
-    //      solutions = evolveSeatingplanSolutions(solutionRatings);
-    //      solutions = mutateSeatingplanSolutions(solutions);
-    //      solutions.addAll(generateSolutions(seatingplan, 100 - solutions.size()));
-    //    }
-    //    return findBestSeatingplanSolution(rateSeatingplanSolutions(solutions));
+    for (int i = 0; i < 20; i++) {
+      var solutionRatings = rateSeatingplanSolutions(solutions, seatingplan);
+      solutions = evolveSeatingplanSolutions(solutionRatings);
+      solutions.addAll(mutateSeatingplanSolutions(solutions, 100));
+      solutions.addAll(generateSolutions(seatingplan, 100 - solutions.size()));
+    }
+    return findBestSeatingplanSolution(rateSeatingplanSolutions(solutions, seatingplan));
   }
 
   private List<SeatingplanSolution> generateSolutions(Seatingplan seatingplan, int amount) {
@@ -38,23 +39,25 @@ public class SeatingplanOptimizer {
   }
 
   private List<Pair<SeatingplanSolution, Integer>> rateSeatingplanSolutions(
-      List<SeatingplanSolution> seatingplanSolutions) {
+      List<SeatingplanSolution> seatingplanSolutions, Seatingplan seatingplan) {
     return seatingplanSolutions.stream()
         .map(
             solution ->
                 Pair.of(
-                    solution, seatingplanSolutionEvaluator.evaluateSeatingplanSolution(solution)))
+                    solution,
+                    seatingplanSolutionEvaluator.evaluateSeatingplanSolution(
+                        solution, seatingplan)))
         .toList();
   }
 
   private List<SeatingplanSolution> evolveSeatingplanSolutions(
       List<Pair<SeatingplanSolution, Integer>> solutionRatings) {
-    return new ArrayList<>();
+    return seatingplanEvolver.evolveSeatingplanSolutions(solutionRatings);
   }
 
   private List<SeatingplanSolution> mutateSeatingplanSolutions(
-      List<SeatingplanSolution> seatingplanSolutions) {
-    return new ArrayList<>();
+      List<SeatingplanSolution> seatingplanSolutions, int amount) {
+    return seatingplanMutator.mutateSeatingplanSolutions(seatingplanSolutions, amount);
   }
 
   private SeatingplanSolution findBestSeatingplanSolution(
