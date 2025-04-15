@@ -24,7 +24,7 @@ public class SeatingplanOptimizer {
     for (int i = 0; i < 20; i++) {
       var solutionRatings = rateSeatingplanSolutions(solutions, seatingplan);
       solutions = evolveSeatingplanSolutions(solutionRatings);
-      solutions.addAll(mutateSeatingplanSolutions(solutions, 100));
+      solutions.addAll(mutateSeatingplanSolutions(seatingplan, solutions, 100));
       solutions.addAll(generateSolutions(seatingplan, 100 - solutions.size()));
     }
     return findBestSeatingplanSolution(rateSeatingplanSolutions(solutions, seatingplan));
@@ -56,8 +56,14 @@ public class SeatingplanOptimizer {
   }
 
   private List<SeatingplanSolution> mutateSeatingplanSolutions(
-      List<SeatingplanSolution> seatingplanSolutions, int amount) {
-    return seatingplanMutator.mutateSeatingplanSolutions(seatingplanSolutions, amount);
+      Seatingplan seatingplan, List<SeatingplanSolution> seatingplanSolutions, int amount) {
+    var solutionFragments =
+        seatingplanMutator.mutateSeatingplanSolutions(seatingplanSolutions, amount);
+    return solutionFragments.stream()
+        .map(
+            fragment ->
+                solutionGenerator.generateSeatingplanSolution(seatingplan, fragment.getTables()))
+        .toList();
   }
 
   private SeatingplanSolution findBestSeatingplanSolution(

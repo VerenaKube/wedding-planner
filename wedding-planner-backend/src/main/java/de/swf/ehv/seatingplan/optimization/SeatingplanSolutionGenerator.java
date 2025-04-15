@@ -52,8 +52,14 @@ public class SeatingplanSolutionGenerator {
 
   public @Nonnull SeatingplanSolution generateSeatingplanSolution(
       @Nonnull Seatingplan seatingplan) {
-    var tables = new ArrayList<Table>();
-    tables.add(createBasicWeddingTable(seatingplan));
+    return generateSeatingplanSolution(seatingplan, new ArrayList<>());
+  }
+
+  public @Nonnull SeatingplanSolution generateSeatingplanSolution(
+      @Nonnull Seatingplan seatingplan, List<Table> tables) {
+    if (tables.stream().noneMatch(table -> table.tableNumber() == 1)) {
+      tables.add(createBasicWeddingTable(seatingplan));
+    }
 
     var guestCircles = shuffleGuestList(seatingplan.getGuestList());
     distributeGuestsToTables(guestCircles, seatingplan, tables);
