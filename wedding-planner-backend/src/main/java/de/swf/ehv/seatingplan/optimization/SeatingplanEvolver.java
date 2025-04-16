@@ -4,7 +4,7 @@ import de.swf.ehv.seatingplan.persistence.entities.SeatingplanSolution;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 
 @ApplicationScoped
@@ -17,7 +17,7 @@ public class SeatingplanEvolver {
     return solutionRatings.stream()
         .filter(pair -> seatingplanHasEvolved(pair.getRight(), maxRating))
         .map(Pair::getLeft)
-        .toList();
+        .collect(Collectors.toList());
   }
 
   private boolean seatingplanHasEvolved(Integer rating, Integer maxValue) {

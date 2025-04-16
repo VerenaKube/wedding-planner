@@ -60,8 +60,7 @@ public class SeatingplanSolutionGenerator {
     if (tables.stream().noneMatch(table -> table.tableNumber() == 1)) {
       tables.add(createBasicWeddingTable(seatingplan));
     }
-
-    var guestCircles = shuffleGuestList(seatingplan.getGuestList());
+    var guestCircles = shuffleGuestList(filterSeatedGuests(seatingplan.getGuestList(), tables));
     distributeGuestsToTables(guestCircles, seatingplan, tables);
     return new SeatingplanSolution(seatingplan.getId(), tables);
   }
@@ -187,6 +186,22 @@ public class SeatingplanSolutionGenerator {
     Collections.copy(guestCircles, guestList);
     Collections.shuffle(guestCircles);
     return guestCircles;
+  }
+
+  private List<GuestCircle> filterSeatedGuests(List<GuestCircle> guests, List<Table> tables) {
+    return guests.stream()
+        .filter(
+            circle ->
+                circle.members().stream()
+                    .noneMatch(
+                        guest ->
+                            tables.stream()
+                                .flatMap(
+                                    table ->
+                                        table.guests().stream().flatMap(c -> c.members().stream()))
+                                .toList()
+                                .contains(guest)))
+        .toList();
   }
 
   private enum FilterName {
