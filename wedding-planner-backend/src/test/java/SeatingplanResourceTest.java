@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class SeatingplanResourceTest {
 
   @Test
-  void testCreateSeatingplan() throws IOException {
+  void testSeatingplanHandling() throws IOException {
     var seatingplanCreationRequest =
         Files.readString(
             Path.of("src/test/resources", "postSeatingplanRequest.json"), StandardCharsets.UTF_8);
