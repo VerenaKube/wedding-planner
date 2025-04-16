@@ -13,6 +13,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,9 +142,16 @@ public class SeatingplanSolutionGenerator {
                     .findFirst()
                     .ifPresentOrElse(
                         table -> table.guests().add(guestCircle),
-                        () -> {
-                          throw new IllegalArgumentException("No available table for guests found");
-                        });
+                        () ->
+                            tables.stream()
+                                .min(
+                                    Comparator.comparingInt(
+                                        t ->
+                                            t.guests().stream()
+                                                .flatMap(g -> g.members().stream())
+                                                .toList()
+                                                .size()))
+                                .ifPresent(t -> t.guests().add(guestCircle)));
               }
             }
           }
