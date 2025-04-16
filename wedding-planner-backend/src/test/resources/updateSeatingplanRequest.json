@@ -1,0 +1,903 @@
+{
+  "bride": "Verena",
+  "groom": "Rene",
+  "guestList": [
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Max",
+          "groups": [
+            "Freunde",
+            "Trauzeuge"
+          ],
+          "lastName": "Mustermann"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Erika",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Mustermann"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Tim",
+          "groups": [
+            "Schulfreunde"
+          ],
+          "lastName": "Mustermann"
+        },
+        {
+          "age": "TEEN",
+          "firstName": "Anna",
+          "groups": [
+            "Freunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Mustermann"
+        }
+      ],
+      "name": "Familie Mustermann"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Karl",
+          "groups": [
+            "Arbeitskollegen",
+            "Nachbarn"
+          ],
+          "lastName": "Schmidt"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Petra",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Schmidt"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Lukas",
+          "groups": [
+            "Familie",
+            "Schulfreunde"
+          ],
+          "lastName": "Schmidt"
+        },
+        {
+          "age": "TEEN",
+          "firstName": "Lena",
+          "groups": [
+            "Freunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Schmidt"
+        },
+        {
+          "age": "CHILD",
+          "firstName": "Moritz",
+          "groups": [],
+          "lastName": "Schmidt"
+        }
+      ],
+      "name": "Familie Schmidt"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Hans",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Müller"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Greta",
+          "groups": [
+            "Freunde",
+            "Nachbarn"
+          ],
+          "lastName": "Müller"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Sophie",
+          "groups": [
+            "Schulfreunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Müller"
+        },
+        {
+          "age": "TEEN",
+          "firstName": "Paul",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Müller"
+        }
+      ],
+      "name": "Familie Müller"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Michael",
+          "groups": [
+            "Sportmannschaft"
+          ],
+          "lastName": "Fischer"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Angela",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Fischer"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Bruno",
+          "groups": [
+            "Freunde",
+            "Schulfreunde"
+          ],
+          "lastName": "Fischer"
+        }
+      ],
+      "name": "Familie Fischer"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Stefan",
+          "groups": [
+            "Arbeitskollegen",
+            "Nachbarn"
+          ],
+          "lastName": "Weber"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Maria",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Weber"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Jan",
+          "groups": [
+            "Sportmannschaft"
+          ],
+          "lastName": "Weber"
+        },
+        {
+          "age": "TEEN",
+          "firstName": "Julia",
+          "groups": [
+            "Freunde",
+            "Schulfreunde"
+          ],
+          "lastName": "Weber"
+        }
+      ],
+      "name": "Familie Weber"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "David",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Becker"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Julia",
+          "groups": [
+            "Freunde",
+            "Nachbarn"
+          ],
+          "lastName": "Becker"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Simon",
+          "groups": [
+            "Sportmannschaft"
+          ],
+          "lastName": "Becker"
+        },
+        {
+          "age": "TEEN",
+          "firstName": "Kevin",
+          "groups": [
+            "Schulfreunde"
+          ],
+          "lastName": "Becker"
+        },
+        {
+          "age": "CHILD",
+          "firstName": "Emma",
+          "groups": [],
+          "lastName": "Becker"
+        }
+      ],
+      "name": "Familie Becker"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Claudia",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Lang"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Markus",
+          "groups": [
+            "Familie",
+            "Freunde"
+          ],
+          "lastName": "Lang"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Sophie",
+          "groups": [
+            "Schulfreunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Lang"
+        },
+        {
+          "age": "TEEN",
+          "firstName": "Timo",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Lang"
+        },
+        {
+          "age": "CHILD",
+          "firstName": "Florian",
+          "groups": [],
+          "lastName": "Lang"
+        }
+      ],
+      "name": "Familie Lang"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Anna",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Wagner"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Lukas",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Wagner"
+        }
+      ],
+      "name": "Paar Wagner"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Tina",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Meyer"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Oliver",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Meyer"
+        }
+      ],
+      "name": "Paar Meyer"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Clara",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Hoffmann"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Jonas",
+          "groups": [
+            "Freunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Hoffmann"
+        }
+      ],
+      "name": "Paar Hoffmann"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Leon",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Schulz"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Sarah",
+          "groups": [
+            "Paar",
+            "Freunde",
+            "Arbeitskollegen"
+          ],
+          "lastName": "Schulz"
+        }
+      ],
+      "name": "Paar Schulz"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Nina",
+          "groups": [
+            "Freunde",
+            "Schulfreunde"
+          ],
+          "lastName": "Braun"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Tim",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Braun"
+        }
+      ],
+      "name": "Paar Braun"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Pauline",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Zimmermann"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Felix",
+          "groups": [
+            "Arbeitskollegen",
+            "Sportmannschaft"
+          ],
+          "lastName": "Zimmermann"
+        }
+      ],
+      "name": "Paar Zimmermann"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Laura",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Neumann"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Markus",
+          "groups": [
+            "Freunde",
+            "Trauzeuge"
+          ],
+          "lastName": "Neumann"
+        }
+      ],
+      "name": "Paar Neumann"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Eva",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Schneider"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Max",
+          "groups": [
+            "Paar",
+            "Freunde",
+            "Schulfreunde"
+          ],
+          "lastName": "Schneider"
+        }
+      ],
+      "name": "Paar Schneider"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Kim",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Koch"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Thorsten",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Koch"
+        }
+      ],
+      "name": "Paar Koch"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Dina",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Richter"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Stefan",
+          "groups": [
+            "Freunde",
+            "Arbeitskollegen"
+          ],
+          "lastName": "Richter"
+        }
+      ],
+      "name": "Paar Richter"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Oliver",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Fischer"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Paula",
+          "groups": [
+            "Freunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Fischer"
+        }
+      ],
+      "name": "Paar Fischer"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Maria",
+          "groups": [
+            "Freunde",
+            "Arbeitskollegen"
+          ],
+          "lastName": "Klein"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Paul",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Klein"
+        }
+      ],
+      "name": "Paar Klein"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Lisa",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Schwarz"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Eric",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Schwarz"
+        }
+      ],
+      "name": "Paar Schwarz"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Anna",
+          "groups": [
+            "Schulfreunde"
+          ],
+          "lastName": "Jung"
+        },
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Kevin",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Jung"
+        }
+      ],
+      "name": "Paar Jung"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Laura",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Weiß"
+        },
+        {
+          "age": "ADULT",
+          "firstName": "Simon",
+          "groups": [
+            "Freunde",
+            "Sportmannschaft"
+          ],
+          "lastName": "Weiß"
+        }
+      ],
+      "name": "Paar Weiß"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Johannes",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Maier"
+        }
+      ],
+      "name": "Single Maier"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Patrick",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Lehmann"
+        }
+      ],
+      "name": "Single Lehmann"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Daniela",
+          "groups": [
+            "Freunde",
+            "Schulfreunde"
+          ],
+          "lastName": "Wolf"
+        }
+      ],
+      "name": "Single Wolf"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Charlotte",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Schröder"
+        }
+      ],
+      "name": "Single Schröder"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Florian",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Neumann"
+        }
+      ],
+      "name": "Single Neumann"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Markus",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Zimmer"
+        }
+      ],
+      "name": "Single Zimmer"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Sabrina",
+          "groups": [
+            "Freunde",
+            "Arbeitskollegen"
+          ],
+          "lastName": "Hartmann"
+        }
+      ],
+      "name": "Single Hartmann"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Kevin",
+          "groups": [
+            "Schulfreunde"
+          ],
+          "lastName": "Lange"
+        }
+      ],
+      "name": "Single Lange"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Theresa",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Schmitt"
+        }
+      ],
+      "name": "Single Schmitt"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Ben",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Werner"
+        }
+      ],
+      "name": "Single Werner"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Felix",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Krause"
+        }
+      ],
+      "name": "Single Krause"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Amelie",
+          "groups": [
+            "Freunde",
+            "Nachbarn"
+          ],
+          "lastName": "Schuster"
+        }
+      ],
+      "name": "Single Schuster"
+    },
+    {
+      "members": [
+        {
+          "age": "TEEN",
+          "firstName": "Leonie",
+          "groups": [
+            "Schulfreunde"
+          ],
+          "lastName": "Busch"
+        }
+      ],
+      "name": "Single Busch"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Daniel",
+          "groups": [
+            "Arbeitskollegen",
+            "Sportmannschaft"
+          ],
+          "lastName": "Sommer"
+        }
+      ],
+      "name": "Single Sommer"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Luca",
+          "groups": [
+            "Freunde"
+          ],
+          "lastName": "Herzog"
+        }
+      ],
+      "name": "Single Herzog"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Leon",
+          "groups": [
+            "Schulfreunde"
+          ],
+          "lastName": "Berg"
+        }
+      ],
+      "name": "Single Berg"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Julia",
+          "groups": [
+            "Arbeitskollegen",
+            "Freunde"
+          ],
+          "lastName": "Vogel"
+        }
+      ],
+      "name": "Single Vogel"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Martin",
+          "groups": [
+            "Nachbarn"
+          ],
+          "lastName": "Kuhn"
+        }
+      ],
+      "name": "Single Kuhn"
+    },
+    {
+      "members": [
+        {
+          "age": "YOUNG_ADULT",
+          "firstName": "Sophie",
+          "groups": [
+            "Freunde",
+            "Schulfreunde"
+          ],
+          "lastName": "Frank"
+        }
+      ],
+      "name": "Single Frank"
+    },
+    {
+      "members": [
+        {
+          "age": "ADULT",
+          "firstName": "Erik",
+          "groups": [
+            "Arbeitskollegen"
+          ],
+          "lastName": "Roth"
+        }
+      ],
+      "name": "Single Roth"
+    }
+  ],
+  "id": "seatingplanId",
+  "name": "Testplan",
+  "seatingRules": [
+    {
+      "firstGuest": {
+        "firstName": "Tim",
+        "lastName": "Mustermann"
+      },
+      "id": "d5b262de-7a34-46a2-a59b-bdca7515d4c9",
+      "ruleType": "ENEMY",
+      "secondGuest": {
+        "firstName": "Oliver",
+        "lastName": "Fischer"
+      }
+    }
+  ],
+  "tableData": {
+    "numberOfTables": 11,
+    "seatsPerTable": 8,
+    "type": "ROUND"
+  },
+  "weddingDate": "2025-05-05"
+}

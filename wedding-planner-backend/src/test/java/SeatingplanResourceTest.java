@@ -1,39 +1,23 @@
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.MongoDBContainer;
 
 @QuarkusTest
+@QuarkusTestResource(MongoTestResource.class)
 class SeatingplanResourceTest {
 
-  private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0.5");
-
-  @BeforeAll
-  static void setUp() {
-    mongoDBContainer.start();
-    System.setProperty("quarkus.mongodb.connection-string", mongoDBContainer.getReplicaSetUrl());
-  }
-
-  @AfterAll
-  static void tearDown() {
-    mongoDBContainer.stop();
-  }
-
   @Test
-  void testCreateSeatingplan() {
+  void testCreateSeatingplan() throws IOException {
     var seatingplanCreationRequest =
-        """
-        {
-            "name": "First Example",
-            "bride": "Verena",
-            "groom": "Rene",
-            "weddingDate": "2025-05-05"
-        }
-        """;
+        Files.readString(
+            Path.of("src/test/resources", "postSeatingplanRequest.json"), StandardCharsets.UTF_8);
     var seatingplanId =
         RestAssured.given()
             .contentType(ContentType.JSON)
@@ -44,8 +28,28 @@ class SeatingplanResourceTest {
             .statusCode(201)
             .extract()
             .body()
-            .asString();
-
+            .jsonPath()
+            .getString("");
     Assertions.assertThat(seatingplanId).isNotNull();
+
+    RestAssured.given()
+        .contentType(ContentType.JSON)
+        .when()
+        .get("/seatingplans/{id}", seatingplanId)
+        .then()
+        .statusCode(200);
+
+    var updateSeatingplanRequest =
+        Files.readString(
+                Path.of("src/test/resources", "updateSeatingplanRequest.json"),
+                StandardCharsets.UTF_8)
+            .replace("seatingplanId", seatingplanId);
+    RestAssured.given()
+        .contentType(ContentType.JSON)
+        .body(updateSeatingplanRequest)
+        .when()
+        .put("/seatingplans/{id}", seatingplanId)
+        .then()
+        .statusCode(204);
   }
 }
