@@ -28,7 +28,8 @@ public class SeatingplanSolutionEvaluator {
     var groupsSittingTogether = determineGroupsSittingTogether(tables);
     var guestsOfSameAgeSittingTogether = determineGuestsOfSameAgeSittingTogether(tables);
 
-    return friendsSittingTogether
+    return 10
+        + friendsSittingTogether
         + groupsSittingTogether
         + guestsOfSameAgeSittingTogether
         - freeSeatsOnUsedTables
