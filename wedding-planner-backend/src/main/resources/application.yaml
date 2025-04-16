@@ -11,4 +11,4 @@ quarkus:
   mongodb:
     connection-string: "mongodb://root:IAmUnsecure@localhost:27017/weddingDB?authSource=admin"
     database: weddingDB
-    uuid-representation: standard
+    uuid-representation: STANDARD
