@@ -1,3 +1,4 @@
+import de.swf.ehv.planner.generated.api.model.SeatingplanSolutionDto;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -49,6 +50,33 @@ class SeatingplanResourceTest {
         .body(updateSeatingplanRequest)
         .when()
         .put("/seatingplans/{id}", seatingplanId)
+        .then()
+        .statusCode(204);
+
+    RestAssured.given()
+        .contentType(ContentType.JSON)
+        .when()
+        .post("/seatingplans/{id}/validations", seatingplanId)
+        .then()
+        .statusCode(200);
+
+    var solution =
+        RestAssured.given()
+            .contentType(ContentType.JSON)
+            .when()
+            .get("/seatingplans/{id}/solutions", seatingplanId)
+            .then()
+            .statusCode(200)
+            .extract()
+            .body()
+            .as(SeatingplanSolutionDto.class);
+
+    Assertions.assertThat(solution).isNotNull();
+
+    RestAssured.given()
+        .contentType(ContentType.JSON)
+        .when()
+        .delete("/seatingplans/{id}", seatingplanId)
         .then()
         .statusCode(204);
   }
