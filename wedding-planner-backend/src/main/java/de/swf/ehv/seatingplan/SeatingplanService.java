@@ -2,7 +2,6 @@ package de.swf.ehv.seatingplan;
 
 import de.swf.ehv.planner.generated.api.model.SeatingplanCreationRequest;
 import de.swf.ehv.planner.generated.api.model.SeatingplanDto;
-import de.swf.ehv.planner.generated.api.model.SeatingplanSolutionDto;
 import de.swf.ehv.planner.generated.api.model.ValidationResponse;
 import de.swf.ehv.seatingplan.optimization.SeatingplanOptimizer;
 import de.swf.ehv.seatingplan.persistence.SeatingplanRepository;
@@ -70,10 +69,11 @@ public class SeatingplanService {
     return ValidationResponse.builder().messages(messages).build();
   }
 
-  public SeatingplanSolutionDto generateSeatingplanSolution(UUID id) {
+  public void generateSeatingplanSolution(UUID id) {
     var seatingplan = repository.findByIdOptional(id).orElseThrow();
     var solution = optimizer.optimize(seatingplan);
+    seatingplan.setSolution(solution);
+    repository.update(seatingplan);
     System.out.println(solution);
-    return mapper.fromSeatingplanSolution(solution);
   }
 }

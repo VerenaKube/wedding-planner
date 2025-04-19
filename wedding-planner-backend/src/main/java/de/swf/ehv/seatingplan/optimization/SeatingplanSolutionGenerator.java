@@ -63,7 +63,7 @@ public class SeatingplanSolutionGenerator {
     }
     var guestCircles = shuffleGuestList(filterSeatedGuests(seatingplan.getGuestList(), tables));
     distributeGuestsToTables(guestCircles, seatingplan, tables);
-    return new SeatingplanSolution(seatingplan.getId(), tables);
+    return new SeatingplanSolution(tables);
   }
 
   private Table createBasicWeddingTable(Seatingplan seatingplan) {

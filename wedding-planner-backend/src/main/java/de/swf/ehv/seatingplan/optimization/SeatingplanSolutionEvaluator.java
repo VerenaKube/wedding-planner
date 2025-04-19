@@ -17,7 +17,7 @@ public class SeatingplanSolutionEvaluator {
 
   public Integer evaluateSeatingplanSolution(
       @Nonnull SeatingplanSolution seatingplanSolution, Seatingplan seatingplan) {
-    var tables = seatingplanSolution.getTables();
+    var tables = seatingplanSolution.tables();
     var tableData = seatingplan.getTableData();
     var seatingRules = seatingplan.getSeatingRules();
     var freeSeatsOnUsedTables = countFreeSeats(tables, tableData);

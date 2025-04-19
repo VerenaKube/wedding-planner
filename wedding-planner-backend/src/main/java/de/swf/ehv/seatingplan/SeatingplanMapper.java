@@ -50,7 +50,24 @@ public class SeatingplanMapper {
         .guestList(toGuestList(seatingplanDto.getGuestList()))
         .tableData(toTableData(seatingplanDto.getTableData()))
         .seatingRules(toSeatingRules(seatingplanDto.getSeatingRules()))
+        .solution(toSeatingplanSolution(seatingplanDto.getSolution()))
         .build();
+  }
+
+  public SeatingplanSolution toSeatingplanSolution(SeatingplanSolutionDto seatingplanSolutionDto) {
+    return Optional.ofNullable(seatingplanSolutionDto)
+        .map(solutionDto -> new SeatingplanSolution(toTables(solutionDto.getTables())))
+        .orElse(null);
+  }
+
+  private List<Table> toTables(List<TableDto> tableDtos) {
+    return Optional.ofNullable(tableDtos)
+        .map(t -> t.stream().map(this::toTable).collect(Collectors.toList()))
+        .orElse(Collections.emptyList());
+  }
+
+  private Table toTable(TableDto tableDto) {
+    return new Table(tableDto.getTableNumber(), toGuestList(tableDto.getGuests()));
   }
 
   private List<GuestCircle> toGuestList(List<GuestCircleDto> guestList) {
@@ -106,10 +123,7 @@ public class SeatingplanMapper {
     return Optional.ofNullable(seatingplanSolution)
         .map(
             solution ->
-                SeatingplanSolutionDto.builder()
-                    .id(solution.getId())
-                    .tables(fromTables(solution.getTables()))
-                    .build())
+                SeatingplanSolutionDto.builder().tables(fromTables(solution.tables())).build())
         .orElse(null);
   }
 
@@ -136,6 +150,7 @@ public class SeatingplanMapper {
         .guestList(fromGuestList(seatingplan.getGuestList()))
         .tableData(fromTableData(seatingplan.getTableData()))
         .seatingRules(fromSeatingRules(seatingplan.getSeatingRules()))
+        .solution(fromSeatingplanSolution(seatingplan.getSolution()))
         .build();
   }
 

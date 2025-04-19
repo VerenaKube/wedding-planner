@@ -62,7 +62,7 @@ public class SeatingplanOptimizer {
     return solutionFragments.stream()
         .map(
             fragment ->
-                solutionGenerator.generateSeatingplanSolution(seatingplan, fragment.getTables()))
+                solutionGenerator.generateSeatingplanSolution(seatingplan, fragment.tables()))
         .toList();
   }
 

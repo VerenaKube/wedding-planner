@@ -28,21 +28,20 @@ public class SeatingplanMutator {
             seatingplanSolutions.get(
                 ThreadLocalRandom.current().nextInt(seatingplanSolutions.size()));
       }
-      var mutatedSolution =
-          SeatingplanSolution.builder().id(firstSolution.getId()).tables(new ArrayList<>()).build();
+      var mutatedSolution = new SeatingplanSolution(new ArrayList<>());
 
       List<GuestCircle> firstTable;
       List<GuestCircle> secondTable;
       do {
         firstTable =
             firstSolution
-                .getTables()
-                .get(ThreadLocalRandom.current().nextInt(firstSolution.getTables().size()))
+                .tables()
+                .get(ThreadLocalRandom.current().nextInt(firstSolution.tables().size()))
                 .guests();
         secondTable =
             secondSolution
-                .getTables()
-                .get(ThreadLocalRandom.current().nextInt(secondSolution.getTables().size()))
+                .tables()
+                .get(ThreadLocalRandom.current().nextInt(secondSolution.tables().size()))
                 .guests();
 
       } while (noDuplicateGuestsOnTables(firstTable, secondTable));
@@ -50,10 +49,10 @@ public class SeatingplanMutator {
       var secondTableNumber = tableContainsWeddingPair(firstTable) ? 2 : 3;
 
       mutatedSolution
-          .getTables()
+          .tables()
           .add(new Table(tableContainsWeddingPair(firstTable) ? 1 : 2, firstTable));
       mutatedSolution
-          .getTables()
+          .tables()
           .add(
               new Table(
                   tableContainsWeddingPair(secondTable) ? 1 : secondTableNumber, secondTable));

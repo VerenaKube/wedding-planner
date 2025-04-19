@@ -130,11 +130,11 @@ paths:
           description: "Seatingplan is not completed. No validation possible."
 
   /seatingplans/{id}/solutions:
-    get:
+    post:
       tags:
         - Seatingplan
       summary: Creates a good seatingplan
-      operationId: generateSeatingplanSolution
+      operationId: createSeatingplanSolution
       parameters:
         - name: id
           in: path
@@ -197,6 +197,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SeatingRuleDto"
+        solution:
+          $ref: '#/components/schemas/SeatingplanSolutionDto'
 
     GuestCircleDto:
       properties:
@@ -279,9 +281,6 @@ components:
 
     SeatingplanSolutionDto:
       properties:
-        id:
-          type: string
-          format: uuid
         tables:
           type: array
           items:

@@ -50,9 +50,8 @@ public class SeatingplanResource implements SeatingplanApi {
   }
 
   @Override
-  public Response generateSeatingplanSolution(UUID id) {
-    return Response.status(200, "Seatingplan solution successfully created")
-        .entity(service.generateSeatingplanSolution(id))
-        .build();
+  public Response createSeatingplanSolution(UUID id) {
+    service.generateSeatingplanSolution(id);
+    return Response.status(201, "Seatingplan solution successfully created").build();
   }
 }

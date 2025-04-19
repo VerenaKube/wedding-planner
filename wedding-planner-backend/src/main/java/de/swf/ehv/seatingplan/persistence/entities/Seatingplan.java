@@ -23,4 +23,5 @@ public class Seatingplan extends PanacheMongoEntityBase {
   private List<GuestCircle> guestList;
   private TableData tableData;
   private List<SeatingRule> seatingRules;
+  private SeatingplanSolution solution;
 }
