@@ -4,7 +4,7 @@ import de.swf.ehv.planner.generated.api.model.SeatingplanCreationRequest;
 import de.swf.ehv.planner.generated.api.model.SeatingplanDto;
 import de.swf.ehv.planner.generated.api.model.SeatingplanSolutionDto;
 import de.swf.ehv.planner.generated.api.model.ValidationResponse;
-import de.swf.ehv.seatingplan.optimization.SeatingplanOptimizer;
+import de.swf.ehv.seatingplan.optimization.SeatingplanSolutionOptimizer;
 import de.swf.ehv.seatingplan.persistence.SeatingplanRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class SeatingplanService {
 
   private final SeatingplanRepository repository;
 
-  private final SeatingplanOptimizer optimizer;
+  private final SeatingplanSolutionOptimizer optimizer;
 
   private final SeatingplanMapper mapper;
 

@@ -12,12 +12,12 @@ import org.apache.commons.lang3.tuple.Pair;
 
 @ApplicationScoped
 @RequiredArgsConstructor
-public class SeatingplanOptimizer {
+public class SeatingplanSolutionOptimizer {
 
   private final SeatingplanSolutionGenerator solutionGenerator;
   private final SeatingplanSolutionEvaluator seatingplanSolutionEvaluator;
-  private final SeatingplanEvolver seatingplanEvolver;
-  private final SeatingplanMutator seatingplanMutator;
+  private final SeatingplanSolutionEvolver seatingplanEvolver;
+  private final SeatingplanSolutionMutator seatingplanMutator;
 
   public SeatingplanSolution optimize(@Nonnull Seatingplan seatingplan) {
     var solutions = generateSolutions(seatingplan, 1);

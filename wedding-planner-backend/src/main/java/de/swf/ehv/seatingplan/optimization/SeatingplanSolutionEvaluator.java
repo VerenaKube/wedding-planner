@@ -73,14 +73,14 @@ public class SeatingplanSolutionEvaluator {
 
   private Integer countRuleMatchesOnTables(
       List<Table> tables, List<SeatingRule> seatingRules, RuleType ruleType) {
-    var enemyPairCounter = 0;
+    var matchCounter = 0;
     for (var table : tables) {
       var guestsAtTable =
           table.guests().stream()
               .flatMap(guest -> guest.members().stream())
               .map(this::mapGuestToName)
               .toList();
-      enemyPairCounter +=
+      matchCounter +=
           (int)
               seatingRules.stream()
                   .filter(seatingRule -> seatingRule.ruleType().equals(ruleType))
@@ -90,7 +90,7 @@ public class SeatingplanSolutionEvaluator {
                               && guestsAtTable.contains(mapGuestToName(seatingRule.secondGuest())))
                   .count();
     }
-    return enemyPairCounter;
+    return matchCounter;
   }
 
   private Integer determineGroupsSittingTogether(List<Table> tables) {
