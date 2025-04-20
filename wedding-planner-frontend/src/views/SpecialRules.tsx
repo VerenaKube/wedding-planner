@@ -96,30 +96,37 @@ export default function SpecialRules() {
                         <div className="w-1/2 p-4 mt-10">
                             <h2 className="headline-white-background mb-5">Freunde</h2>
                             <div className="connected-guests-container">
-                                {(seatingPlan.seatingRules ?? [])
-                                    .filter((rule) => rule.ruleType === "FRIEND")
-                                    .map((rule, index) => (
-                                        <div key={index} className="connection flex items-center justify-between">
-                                            <p>
-                                                {getFullName(rule.firstGuest ?? {
-                                                    firstName: "Unbekannt",
-                                                    lastName: ""
-                                                })}{" "}
-                                                <span className="text-lg text-red-500">⚡</span>{" "}
-                                                {getFullName(rule.secondGuest ?? {
-                                                    firstName: "Unbekannt",
-                                                    lastName: ""
-                                                })}
-                                            </p>
-                                            <span
-                                                onClick={() => removeSeatingRule(index)}
-                                                className="cursor-pointer text-red-700 hover:text-black hover:!scale-120 "
-                                                title="Regel entfernen"
-                                            >
-                                        🗑️
-                                            </span>
-                                        </div>
-                                    ))}
+                                {
+                                    (seatingPlan.seatingRules ?? [])
+                                        .filter((rule) => rule.ruleType === "FRIEND")
+                                        .map((rule) => {
+                                            const realIndex = (seatingPlan.seatingRules ?? []).indexOf(rule);
+                                            return (
+                                                <div key={realIndex}
+                                                     className="connection flex items-center justify-between">
+                                                    <p>
+                                                        {getFullName(rule.firstGuest ?? {
+                                                            firstName: "Unbekannt",
+                                                            lastName: ""
+                                                        })}{" "}
+                                                        <span className="text-lg text-red-500">⚡</span>{" "}
+                                                        {getFullName(rule.secondGuest ?? {
+                                                            firstName: "Unbekannt",
+                                                            lastName: ""
+                                                        })}
+                                                    </p>
+                                                    <span
+                                                        onClick={() => removeSeatingRule(realIndex)}
+                                                        className="cursor-pointer text-red-700 hover:text-black hover:!scale-120"
+                                                        title="Regel entfernen"
+                                                    >
+            🗑️
+          </span>
+                                                </div>
+                                            );
+                                        })
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -161,31 +168,37 @@ export default function SpecialRules() {
                         <div className="w-1/2 p-4 mt-10">
                             <h2 className="headline-white-background mb-5">Feinde</h2>
                             <div className="connected-guests-container">
-                                {(seatingPlan.seatingRules ?? [])
-                                    .filter((rule) => rule.ruleType === "ENEMY")
-                                    .map((rule, index) => (
-                                        <div key={index} className="connection flex items-center justify-between">
-                                            <p>
-                                                {getFullName(rule.firstGuest ?? {
-                                                    firstName: "Unbekannt",
-                                                    lastName: ""
-                                                })}{" "}
-                                                <span className="text-lg text-red-500">⚡</span>{" "}
-                                                {getFullName(rule.secondGuest ?? {
-                                                    firstName: "Unbekannt",
-                                                    lastName: ""
-                                                })}
-                                            </p>
+                                {
+                                    (seatingPlan.seatingRules ?? [])
+                                        .filter((rule) => rule.ruleType === "ENEMY")
+                                        .map((rule) => {
+                                            const realIndex = (seatingPlan.seatingRules ?? []).indexOf(rule);
+                                            return (
+                                                <div key={realIndex}
+                                                     className="connection flex items-center justify-between">
+                                                    <p>
+                                                        {getFullName(rule.firstGuest ?? {
+                                                            firstName: "Unbekannt",
+                                                            lastName: ""
+                                                        })}{" "}
+                                                        <span className="text-lg text-red-500">⚡</span>{" "}
+                                                        {getFullName(rule.secondGuest ?? {
+                                                            firstName: "Unbekannt",
+                                                            lastName: ""
+                                                        })}
+                                                    </p>
+                                                    <span
+                                                        onClick={() => removeSeatingRule(realIndex)}
+                                                        className="cursor-pointer text-red-700 hover:text-black hover:!scale-120"
+                                                        title="Regel entfernen"
+                                                    >
+            🗑️
+          </span>
+                                                </div>
+                                            );
+                                        })
+                                }
 
-                                            <span
-                                                onClick={() => removeSeatingRule(index)}
-                                                className="cursor-pointer text-red-700 hover:text-black hover:!scale-120 "
-                                                title="Regel entfernen"
-                                            >
-                                        🗑️
-                                    </span>
-                                        </div>
-                                    ))}
                             </div>
                         </div>
                     </div>

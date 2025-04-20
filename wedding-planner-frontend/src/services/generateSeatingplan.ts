@@ -1,4 +1,4 @@
-import {SeatingplanCreationRequest, SeatingplanDto} from "../api-client";
+import {SeatingplanCreationRequest, SeatingplanDto, SeatingplanSolutionDto} from "../api-client";
 import apiClient from "../services/api";
 
 export async function createSeatingPlan(data: SeatingplanCreationRequest): Promise<string> {
@@ -55,3 +55,36 @@ export async function deleteSeatingplan(id: string): Promise<void> {
         throw new Error("Fehler beim Abrufen des Sitzplans");
     }
 }
+
+export async function generateSeatingPlanSolution(id: string): Promise<SeatingplanSolutionDto | null> {
+    try {
+        // Der Endpunkt für die Sitzplanlösung wird aufgerufen
+        const response = await apiClient.createSeatingplanSolution(id);
+
+        // Wenn eine gültige Antwort mit einem Statuscode von 200 kommt, wird die Lösung zurückgegeben
+        if (response.status === 201) {
+            return response.data;  // Hier wird das SeatingplanSolutionDto zurückgegeben
+        }
+
+        // Falls der Statuscode 404 zurückgegeben wird, bedeutet dies, dass der Sitzplan nicht gefunden wurde
+        if (response.status === 404) {
+            console.warn(`Kein Sitzplan mit der ID ${id} gefunden.`);
+            return null;
+        }
+
+        // Falls der Statuscode 500 zurückgegeben wird, bedeutet dies, dass die Generierung der Lösung fehlgeschlagen ist
+        if (response.status === 500) {
+            console.error("Fehler bei der Generierung der Sitzplanlösung.");
+            return null;
+        }
+
+        // Standardmäßig geben wir null zurück, wenn der Statuscode nicht behandelt wird
+        return null;
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Sitzplanlösung:", error);
+        return null;  // Rückgabe null im Fehlerfall
+    }
+}
+
+
+

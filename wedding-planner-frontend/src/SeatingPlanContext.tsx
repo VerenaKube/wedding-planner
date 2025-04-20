@@ -1,19 +1,27 @@
 // src/context/SeatingPlanContext.tsx
 import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
-import {GuestCircleDto, GuestDto, SeatingplanDto, SeatingRuleDto, TableDataDto} from './api-client';
+import {
+    GuestCircleDto,
+    GuestDto,
+    SeatingplanDto,
+    SeatingplanSolutionDto,
+    SeatingRuleDto,
+    TableDataDto
+} from './api-client';
 import {putSeatingplan} from './services/generateSeatingplan.ts';
 
 // Definiere den Kontext-Typ mit seatingPlan und den zugehörigen Funktionen
 interface SeatingPlanContextType {
     seatingPlan: SeatingplanDto;
     addGuestCircle: (guest: GuestDto, familyMembers: GuestDto[]) => void;
-    updateGuestCircle: (index: number, guest: GuestDto, familyMembers: GuestDto[]) => void; // 👈 HIER
+    updateGuestCircle: (index: number, guest: GuestDto, familyMembers: GuestDto[]) => void;
     addSeatingRule: (firstGuest: GuestDto, secondGuest: GuestDto, ruleType: 'FRIEND' | 'ENEMY') => void;
     updateTableData: (tableData: TableDataDto) => void;
     updateGeneralData: (name: string, weddingDate: string, bride: string, groom: string) => void;
     setSeatingPlanUUID: (uuid: string) => void;
     removeSeatingRule: (index: number) => void;
     setSeatingPlan: (plan: SeatingplanDto) => void;
+    updateSolution: (solution: SeatingplanSolutionDto) => void; // 👈 NEU
 }
 
 
@@ -96,6 +104,17 @@ export const SeatingPlanProvider: React.FC<SeatingPlanProviderProps> = ({childre
         });
     };
 
+    const updateSolution = (solution: SeatingplanSolutionDto) => {
+        setSeatingPlan(prevPlan => {
+            const updated = {
+                ...prevPlan,
+                solution,
+            };
+            syncWithBackend(updated);
+            return updated;
+        });
+    };
+
 
     // Funktion zum Hinzufügen einer neuen Sitzregel
     const addSeatingRule = (firstGuest: GuestDto, secondGuest: GuestDto, ruleType: 'FRIEND' | 'ENEMY') => {
@@ -128,11 +147,16 @@ export const SeatingPlanProvider: React.FC<SeatingPlanProviderProps> = ({childre
 
     // Funktion zum Aktualisieren der Tischdaten
     const updateTableData = (tableData: TableDataDto) => {
-        setSeatingPlan(prevPlan => ({
-            ...prevPlan,
-            tableData,
-        }));
+        setSeatingPlan(prevPlan => {
+            const updated = {
+                ...prevPlan,
+                tableData
+            };
+            syncWithBackend(updated);
+            return updated; // <<< Das hier hat gefehlt!
+        });
     };
+
 
     const updateGeneralData = (name: string, weddingDate: string, bride: string, groom: string) => {
         setSeatingPlan(prev => {
@@ -203,10 +227,12 @@ export const SeatingPlanProvider: React.FC<SeatingPlanProviderProps> = ({childre
                 updateGuestCircle,
                 setSeatingPlanUUID,
                 removeSeatingRule,
-                setSeatingPlan: setSeatingPlanContext,  // Benutze den neuen Namen
+                setSeatingPlan: setSeatingPlanContext,
+                updateSolution, // 👈 NEU
             }}
         >
             {children}
         </SeatingPlanContext.Provider>
+
     );
 };
