@@ -1,37 +1,29 @@
-import {CSSProperties, useState} from 'react';
-import {useDrag, useDrop} from 'react-dnd';
 import {GuestDto, TableDto} from './api-client';
-import {useSeatingPlanContext} from './SeatingPlanContext.tsx';
-
-const ItemType = 'GUEST';
-
-const generateTemporaryId = (): string => `temp-${Math.random().toString(36).substr(2, 9)}`;
-
-type GuestWithTempId = GuestDto & { tempId: string };
+import {CSSProperties, JSX} from "react";
+import {useSeatingPlanContext} from "./SeatingPlanContext.tsx";
 
 interface Props {
     table: TableDto;
 }
 
 export default function GraphicalTable({table}: Props) {
-    const {seatingPlan, updateSolution} = useSeatingPlanContext();
-
-    const [guests, setGuests] = useState<GuestWithTempId[]>(
-        (table.guests?.flatMap(gc => gc.members) ?? []).map((guest) => ({
-            ...guest,
-            tempId: generateTemporaryId(), // Jeder Gast bekommt eine eindeutige tempId
-        }))
+    const guests = (table.guests?.flatMap(gc => gc.members) ?? []).filter(
+        (g): g is GuestDto => g !== undefined
     );
 
-    const tableShape = seatingPlan.tableData?.type;
+    const {seatingPlan} = useSeatingPlanContext();
+    const tableShape = seatingPlan.tableData?.type; // 'ROUND' oder 'RECTANGLE'
+
     const isRound = tableShape === 'ROUND';
 
     const guestRadius = 120;
-    const guestCount = guests.length;
 
+    // Dynamische Skalierung der Tischgröße basierend auf der Anzahl der Gäste
+    const guestCount = guests.length;
     let tableWidth = 220;
     let tableHeight = 140;
 
+    // Dynamische Anpassung der Tischgröße je nach Gästeanzahl
     if (guestCount <= 4) {
         tableWidth = 180;
         tableHeight = 100;
@@ -40,155 +32,139 @@ export default function GraphicalTable({table}: Props) {
         tableHeight = 120;
     } else if (guestCount <= 8) {
         tableWidth = 220;
-        tableHeight = 160;
+        tableHeight = 140;
     } else {
         tableWidth = 240;
-        tableHeight = 240;
+        tableHeight = 160;
     }
 
+    // Setzt die Tischgrößen nach der Anzahl der Gäste
     const tableStyle: CSSProperties = {
         width: `${tableWidth}px`,
         height: `${tableHeight}px`,
-        backgroundColor: '#ccc',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: isRound ? '50%' : '8px',
-        position: 'relative',
-        margin: 'auto',
+        backgroundColor: "#ccc",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: isRound ? "50%" : "8px",
+        position: "relative",
+        margin: "auto",
     };
 
-    const guestStyleBase =
-        'absolute w-[70px] h-[70px] bg-blue-100 rounded-full flex items-center justify-center text-center text-xs shadow-md cursor-move select-none';
+    const guestStyleBase = "absolute w-[70px] h-[70px] bg-blue-100 rounded-full flex items-center justify-center text-center text-xs shadow-md";
 
-    const moveGuest = (draggedId: string, targetId: string) => {
-        if (draggedId === targetId) return;
+    const renderGuests = () => {
+        if (isRound) {
+            return guests.map((guest, index) => {
+                const angle = (2 * Math.PI / guests.length) * index;
+                const x = guestRadius * Math.cos(angle);
+                const y = guestRadius * Math.sin(angle);
 
-        const draggedIndex = guests.findIndex(g => g.tempId === draggedId);
-        const targetIndex = guests.findIndex(g => g.tempId === targetId);
-        if (draggedIndex === -1 || targetIndex === -1) return;
-
-        const updatedGuests = [...guests];
-        const [draggedGuest] = updatedGuests.splice(draggedIndex, 1);
-        updatedGuests.splice(targetIndex, 0, draggedGuest);
-        setGuests(updatedGuests);
-
-        // Update context (ohne tempId!)
-        const updatedSolution = {...seatingPlan.solution};
-        const tableToUpdate = updatedSolution?.tables?.find(t => t.tableNumber === table.tableNumber);
-        if (tableToUpdate) {
-            tableToUpdate.guests = [
-                {
-                    ...tableToUpdate.guests?.[0],
-                    members: updatedGuests.map(({tempId, ...rest}) => rest),
-                },
-            ];
-            updateSolution(updatedSolution);
-        }
-
-
-    };
-
-    const GuestItem = ({guest}: { guest: GuestWithTempId }) => {
-        const [, dragRef] = useDrag({
-            type: ItemType,
-            item: {type: ItemType, id: guest.tempId}, // Eine eindeutige tempId für jeden Gast
-        });
-
-        const [, dropRef] = useDrop({
-            accept: ItemType,
-            drop: (item: { id: string }) => moveGuest(item.id, guest.tempId),
-        });
-
-        return (
-            <div
-                ref={(el) => dragRef(dropRef(el))}  // Sorgt dafür, dass der Gast korrekt gezogen und abgelegt wird
-                className={guestStyleBase}
-                style={guestStyles.get(guest.tempId)}  // Verwendet die individuelle Position jedes Gastes
-            >
-                {guest.firstName}
-                <br/>
-                {guest.lastName}
-            </div>
-        );
-    };
-
-    // Dynamische Positionierung der Gäste vorbereiten
-    const guestStyles: Map<string, CSSProperties> = new Map();
-
-    if (isRound) {
-        guests.forEach((guest, index) => {
-            const angle = (2 * Math.PI / guests.length) * index;
-            const x = guestRadius * Math.cos(angle);
-            const y = guestRadius * Math.sin(angle);
-            guestStyles.set(guest.tempId, {
-                top: `calc(50% + ${y}px - 35px)`,
-                left: `calc(50% + ${x}px - 35px)`,
+                return (
+                    <div
+                        key={index}
+                        className={guestStyleBase}
+                        style={{
+                            top: `calc(50% + ${y}px - 35px)`,
+                            left: `calc(50% + ${x}px - 35px)`,
+                        }}
+                    >
+                        {guest.firstName}<br/>{guest.lastName}
+                    </div>
+                );
             });
-        });
-    } else {
-        const guestSize = 70;
-        const sides = ['top', 'right', 'bottom', 'left'];
-        const sideGuestCounts = Array(4).fill(Math.floor(guestCount / 4));
-        let remainingGuests = guestCount % 4;
+        } else {
+            const guestSize = 70;
 
-        for (let i = 0; remainingGuests > 0; i++) {
-            sideGuestCounts[i]++;
-            remainingGuests--;
+            let topCount = 2, bottomCount = 2, leftCount = 0, rightCount = 0;
+
+            if (guestCount <= 4) {
+                topCount = bottomCount = Math.ceil(guestCount / 2);
+            } else if (guestCount <= 6) {
+                topCount = bottomCount = 2;
+                leftCount = rightCount = 1;
+            } else if (guestCount <= 8) {
+                topCount = bottomCount = 2;
+                leftCount = rightCount = 2;
+            } else {
+                topCount = bottomCount = 3;
+                leftCount = rightCount = 2;
+            }
+
+            const containerSize = 300;
+            const offsetX = (containerSize - tableWidth) / 2;
+            const offsetY = (containerSize - tableHeight) / 2;
+
+            // Aufteilen der Gäste auf die Seiten
+            const top = guests.slice(0, topCount);
+            const rightStart = topCount;
+            const bottomStart = rightStart + rightCount;
+            const leftStart = bottomStart + bottomCount;
+
+            const right = guests.slice(rightStart, bottomStart);
+            const bottom = guests.slice(bottomStart, leftStart);
+            const left = guests.slice(leftStart);
+
+            const elements: JSX.Element[] = [];
+
+            const placeGuests = (
+                side: "top" | "bottom" | "left" | "right",
+                arr: GuestDto[]
+            ) => {
+                arr.forEach((guest, i) => {
+                    let style: CSSProperties = {};
+
+                    const spacingH = (tableWidth - arr.length * guestSize) / (arr.length + 1);
+                    const spacingV = (tableHeight - arr.length * guestSize) / (arr.length + 1);
+
+                    if (side === "top") {
+                        const leftPos = offsetX + spacingH * (i + 1) + guestSize * i;
+                        style = {top: `${offsetY - guestSize - 5}px`, left: `${leftPos}px`};
+                    } else if (side === "bottom") {
+                        const leftPos = offsetX + spacingH * (i + 1) + guestSize * i;
+                        style = {top: `${offsetY + tableHeight + 5}px`, left: `${leftPos}px`};
+                    } else if (side === "right") {
+                        const topPos = offsetY + spacingV * (i + 1) + guestSize * i;
+                        style = {top: `${topPos}px`, left: `${offsetX + tableWidth + 5}px`};
+                    } else if (side === "left") {
+                        const topPos = offsetY + spacingV * (i + 1) + guestSize * i;
+                        style = {top: `${topPos}px`, left: `${offsetX - guestSize - 5}px`};
+                    }
+
+                    elements.push(
+                        <div
+                            key={`${side}-${i}`}
+                            className={guestStyleBase}
+                            style={style}
+                        >
+                            {guest.firstName}<br/>{guest.lastName}
+                        </div>
+                    );
+                });
+            };
+
+            placeGuests("top", top);
+            placeGuests("right", right);
+            placeGuests("bottom", bottom);
+            placeGuests("left", left);
+
+            return elements;
         }
-
-        const containerSize = 300;
-        const offsetX = (containerSize - tableWidth) / 2;
-        const offsetY = (containerSize - tableHeight) / 2;
-
-        let guestIndex = 0;
-        for (let sideIndex = 0; sideIndex < 4; sideIndex++) {
-            const count = sideGuestCounts[sideIndex];
-            const sideGuests = guests.slice(guestIndex, guestIndex + count);
-
-            sideGuests.forEach((guest, i) => {
-                const spacingH = (tableWidth - count * guestSize) / (count + 1);
-                const spacingV = (tableHeight - count * guestSize) / (count + 1);
-                let style: CSSProperties = {};
-
-                if (sides[sideIndex] === 'top') {
-                    const leftPos = offsetX + spacingH * (i + 1) + guestSize * i;
-                    style = {top: `${offsetY - guestSize - 5}px`, left: `${leftPos}px`};
-                } else if (sides[sideIndex] === 'bottom') {
-                    const leftPos = offsetX + spacingH * (i + 1) + guestSize * i;
-                    style = {top: `${offsetY + tableHeight + 5}px`, left: `${leftPos}px`};
-                } else if (sides[sideIndex] === 'right') {
-                    const topPos = offsetY + spacingV * (i + 1) + guestSize * i;
-                    style = {top: `${topPos}px`, left: `${offsetX + tableWidth + 5}px`};
-                } else if (sides[sideIndex] === 'left') {
-                    const topPos = offsetY + spacingV * (i + 1) + guestSize * i;
-                    style = {top: `${topPos}px`, left: `${offsetX - guestSize - 5}px`};
-                }
-
-                guestStyles.set(guest.tempId, style);
-            });
-
-            guestIndex += count;
-        }
-    }
+    };
 
     return (
-        <div className="relative w-[300px] h-[300px] mx-30 my-20">
-            <div
-                style={{
-                    ...tableStyle,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                }}
-            >
+        <div className="relative w-[300px] h-[300px] mx-15 my-15">
+            <div style={{
+                ...tableStyle,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)"
+            }}>
                 Tisch {table.tableNumber}
             </div>
 
-            {guests.map(guest => (
-                <GuestItem key={guest.tempId} guest={guest}/>
-            ))}
+            {renderGuests()}
         </div>
     );
 }

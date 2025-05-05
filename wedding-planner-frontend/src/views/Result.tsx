@@ -22,7 +22,7 @@ export default function Result() {
             const sol = await generateSeatingPlanSolution(seatingPlan.id);
             updateSolution(sol!);
         })();
-    }, [seatingPlan.id, seatingPlan.guestList, seatingPlan.seatingRules, seatingPlan.tableData]);
+    }, [seatingPlan.id]);
 
     return (
         <div className="w-full min-h-screen flex flex-col items-center mt-40" style={{width: "99vw"}}>
