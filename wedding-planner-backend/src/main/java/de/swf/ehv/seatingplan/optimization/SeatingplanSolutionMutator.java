@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @ApplicationScoped
-public class SeatingplanMutator {
+public class SeatingplanSolutionMutator {
 
   public List<SeatingplanSolution> mutateSeatingplanSolutions(
       List<SeatingplanSolution> seatingplanSolutions, int amount) {
