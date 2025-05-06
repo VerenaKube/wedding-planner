@@ -56,7 +56,7 @@ public class SeatingplanSolutionGenerator {
     return generateSeatingplanSolution(seatingplan, new ArrayList<>());
   }
 
-  public @Nonnull SeatingplanSolution generateSeatingplanSolution(
+  public @Nonnull synchronized SeatingplanSolution generateSeatingplanSolution(
       @Nonnull Seatingplan seatingplan, List<Table> tables) {
     if (tables.stream().noneMatch(table -> table.tableNumber() == 1)) {
       tables.add(createBasicWeddingTable(seatingplan));
@@ -90,72 +90,71 @@ public class SeatingplanSolutionGenerator {
 
   private void distributeGuestsToTables(
       List<GuestCircle> guestList, Seatingplan seatingplan, List<Table> tables) {
-    guestList.forEach(
-        guestCircle -> {
-          // Check existing tables for optimal solution
-          var optimalTable =
-              tables.stream()
-                  .filter(
-                      table ->
-                          FILTERS
-                                  .get(FilterName.FREE_SEATS_ON_TABLE)
-                                  .apply(guestCircle, seatingplan, table)
-                              && FILTERS
-                                  .get(FilterName.OTHER_GUESTS_OF_SAME_GROUP_ON_TABLE)
-                                  .apply(guestCircle, seatingplan, table)
-                              && FILTERS
-                                  .get(FilterName.NO_ENEMIES_ON_TABLE)
-                                  .apply(guestCircle, seatingplan, table))
-                  .findFirst();
-          if (optimalTable.isPresent()) {
-            optimalTable.get().guests().add(guestCircle);
-          } else {
-            // Find next best table
-            var nextBestTable =
-                tables.stream()
-                    .filter(
-                        table ->
-                            FILTERS
-                                    .get(FilterName.FREE_SEATS_ON_TABLE)
-                                    .apply(guestCircle, seatingplan, table)
-                                && (FILTERS
-                                        .get(FilterName.OTHER_GUESTS_OF_SAME_GROUP_ON_TABLE)
-                                        .apply(guestCircle, seatingplan, table)
-                                    || FILTERS
-                                        .get(FilterName.NO_ENEMIES_ON_TABLE)
-                                        .apply(guestCircle, seatingplan, table)))
-                    .findFirst();
-            if (nextBestTable.isPresent()) {
-              nextBestTable.get().guests().add(guestCircle);
-            } else {
-              if (tables.size() < seatingplan.getTableData().numberOfTables()) {
-                var members = new ArrayList<GuestCircle>();
-                members.add(guestCircle);
-                tables.add(new Table(tables.size() + 1, members));
-              } else {
-                tables.stream()
-                    .filter(
-                        table ->
-                            FILTERS
+    for (var guestCircle : guestList) {
+      // Check existing tables for optimal solution
+      var optimalTable =
+          tables.stream()
+              .filter(
+                  table ->
+                      FILTERS
+                              .get(FilterName.FREE_SEATS_ON_TABLE)
+                              .apply(guestCircle, seatingplan, table)
+                          && FILTERS
+                              .get(FilterName.OTHER_GUESTS_OF_SAME_GROUP_ON_TABLE)
+                              .apply(guestCircle, seatingplan, table)
+                          && FILTERS
+                              .get(FilterName.NO_ENEMIES_ON_TABLE)
+                              .apply(guestCircle, seatingplan, table))
+              .findFirst();
+      if (optimalTable.isPresent()) {
+        optimalTable.get().guests().add(guestCircle);
+      } else {
+        // Find next best table
+        var nextBestTable =
+            tables.stream()
+                .filter(
+                    table ->
+                        FILTERS
                                 .get(FilterName.FREE_SEATS_ON_TABLE)
-                                .apply(guestCircle, seatingplan, table))
-                    .findFirst()
-                    .ifPresentOrElse(
-                        table -> table.guests().add(guestCircle),
-                        () ->
-                            tables.stream()
-                                .min(
-                                    Comparator.comparingInt(
-                                        t ->
-                                            t.guests().stream()
-                                                .flatMap(g -> g.members().stream())
-                                                .toList()
-                                                .size()))
-                                .ifPresent(t -> t.guests().add(guestCircle)));
-              }
-            }
+                                .apply(guestCircle, seatingplan, table)
+                            && (FILTERS
+                                    .get(FilterName.OTHER_GUESTS_OF_SAME_GROUP_ON_TABLE)
+                                    .apply(guestCircle, seatingplan, table)
+                                || FILTERS
+                                    .get(FilterName.NO_ENEMIES_ON_TABLE)
+                                    .apply(guestCircle, seatingplan, table)))
+                .findFirst();
+        if (nextBestTable.isPresent()) {
+          nextBestTable.get().guests().add(guestCircle);
+        } else {
+          if (tables.size() < seatingplan.getTableData().numberOfTables()) {
+            var members = new ArrayList<GuestCircle>();
+            members.add(guestCircle);
+            tables.add(new Table(tables.size() + 1, members));
+          } else {
+            tables.stream()
+                .filter(
+                    table ->
+                        FILTERS
+                            .get(FilterName.FREE_SEATS_ON_TABLE)
+                            .apply(guestCircle, seatingplan, table))
+                .findFirst()
+                .ifPresentOrElse(
+                    table -> table.guests().add(guestCircle),
+                    () ->
+                        tables.stream()
+                            .min(
+                                Comparator.comparingInt(
+                                    t ->
+                                        t.guests().stream()
+                                            .flatMap(g -> g.members().stream())
+                                            .toList()
+                                            .size()))
+                            .ifPresent(t -> t.guests().add(guestCircle)));
           }
-        });
+        }
+      }
+    }
   }
 
   private static List<String> getGroupsFromGuests(List<Guest> guests) {
@@ -200,13 +199,15 @@ public class SeatingplanSolutionGenerator {
     return guests.stream()
         .filter(
             circle ->
-                circle.members().stream()
+                getGuestNamesFromGuests(circle.members()).stream()
                     .noneMatch(
                         guest ->
                             tables.stream()
                                 .flatMap(
                                     table ->
-                                        table.guests().stream().flatMap(c -> c.members().stream()))
+                                        table.guests().stream()
+                                            .flatMap(
+                                                c -> getGuestNamesFromGuests(c.members()).stream()))
                                 .toList()
                                 .contains(guest)))
         .toList();

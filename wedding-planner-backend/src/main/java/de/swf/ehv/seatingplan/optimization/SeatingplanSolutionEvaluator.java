@@ -29,12 +29,12 @@ public class SeatingplanSolutionEvaluator {
     var guestsOfSameAgeSittingTogether = determineGuestsOfSameAgeSittingTogether(tables);
 
     return 10
-        + friendsSittingTogether
-        + groupsSittingTogether
+        + (friendsSittingTogether * 3)
+        + (groupsSittingTogether * 2)
         + guestsOfSameAgeSittingTogether
         - freeSeatsOnUsedTables
         - differenceBetweenBiggestAndSmallestTable
-        - enemiesSittingTogether;
+        - (enemiesSittingTogether * 2);
   }
 
   private Integer countFreeSeats(List<Table> tables, TableData tableData) {
