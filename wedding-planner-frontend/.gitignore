@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 .openapi-generator
-api-client/*
+src/api-client/*
 
 # Editor directories and files
 .vscode/*
