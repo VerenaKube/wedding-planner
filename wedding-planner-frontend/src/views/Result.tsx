@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import NavBar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
 import {useSeatingPlanContext} from "../SeatingPlanContext.tsx";
-import GraphicalTable from "../GraphicalTable.tsx";
+import GraphicalTable from "./GraphicalTable.tsx";
 import {generateSeatingPlanSolution} from "../services/generateSeatingplan";
 import {useNavigate} from "react-router-dom"; // Importiere die Methode
 

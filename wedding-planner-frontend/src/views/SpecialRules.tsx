@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useSeatingPlanContext} from "../SeatingPlanContext";
+import {useSeatingPlanContext} from "../SeatingPlanContext.tsx";
 import Footer from "./Footer.tsx";
 import NavBar from "./Navbar.tsx";
 import {GuestDto} from "../api-client";

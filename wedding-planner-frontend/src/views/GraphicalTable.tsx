@@ -1,6 +1,6 @@
-import {GuestDto, TableDto} from './api-client';
+import {GuestDto, TableDto} from '../api-client';
 import {CSSProperties, JSX} from "react";
-import {useSeatingPlanContext} from "./SeatingPlanContext.tsx";
+import {useSeatingPlanContext} from "../SeatingPlanContext.tsx";
 
 interface Props {
     table: TableDto;

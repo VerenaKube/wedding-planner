@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import NavBar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
-import {useSeatingPlanContext} from "../SeatingPlanContext";
+import {useSeatingPlanContext} from "../SeatingPlanContext.tsx";
 
 export default function TableData() {
     const {seatingPlan, updateTableData} = useSeatingPlanContext(); // 🆕 hole tableData dazu

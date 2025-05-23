@@ -4,7 +4,7 @@ import Footer from './Footer.tsx';
 import {useNavigate} from 'react-router-dom';
 import {SeatingplanDto} from '../api-client';
 import {deleteSeatingplan, getSeatingPlanById, getSeatingPlans} from '../services/generateSeatingplan.ts';
-import {useSeatingPlanContext} from '../SeatingPlanContext';
+import {useSeatingPlanContext} from '../SeatingPlanContext.tsx';
 
 export default function Home() {
     const navigate = useNavigate();
