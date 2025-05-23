@@ -14,18 +14,21 @@ import org.apache.commons.lang3.tuple.Pair;
 @RequiredArgsConstructor
 public class SeatingplanSolutionOptimizer {
 
+  private static final int ALGORITHM_SIZE = 100;
+  private static final int ALGORITHM_ITERATIONS = 20;
+
   private final SeatingplanSolutionGenerator solutionGenerator;
   private final SeatingplanSolutionEvaluator seatingplanSolutionEvaluator;
   private final SeatingplanSolutionEvolver seatingplanEvolver;
   private final SeatingplanSolutionMutator seatingplanMutator;
 
   public SeatingplanSolution optimize(@Nonnull Seatingplan seatingplan) {
-    var solutions = generateSolutions(seatingplan, 1);
-    for (int i = 0; i < 20; i++) {
+    var solutions = generateSolutions(seatingplan, ALGORITHM_SIZE);
+    for (int i = 0; i < ALGORITHM_ITERATIONS; i++) {
       var solutionRatings = rateSeatingplanSolutions(solutions, seatingplan);
       solutions = evolveSeatingplanSolutions(solutionRatings);
-      solutions.addAll(mutateSeatingplanSolutions(seatingplan, solutions, 100));
-      solutions.addAll(generateSolutions(seatingplan, 100 - solutions.size()));
+      solutions.addAll(mutateSeatingplanSolutions(seatingplan, solutions, ALGORITHM_SIZE));
+      solutions.addAll(generateSolutions(seatingplan, ALGORITHM_SIZE - solutions.size()));
     }
     return findBestSeatingplanSolution(rateSeatingplanSolutions(solutions, seatingplan));
   }

@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.openapi-generator
+src/api-client/*
 
 # Editor directories and files
 .vscode/*

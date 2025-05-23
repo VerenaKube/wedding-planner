@@ -13,7 +13,7 @@ public class SeatingplanSolutionEvolver {
   public List<SeatingplanSolution> evolveSeatingplanSolutions(
       List<Pair<SeatingplanSolution, Integer>> solutionRatings) {
     var maxRating =
-        solutionRatings.stream().map(Pair::getRight).max(Integer::compareTo).orElseThrow();
+        solutionRatings.stream().map(Pair::getRight).max(Integer::compareTo).orElseThrow() + 20;
     return solutionRatings.stream()
         .filter(pair -> seatingplanHasEvolved(pair.getRight(), maxRating))
         .map(Pair::getLeft)

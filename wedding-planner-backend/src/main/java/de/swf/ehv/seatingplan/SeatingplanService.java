@@ -70,7 +70,7 @@ public class SeatingplanService {
     return ValidationResponse.builder().messages(messages).build();
   }
 
-  public SeatingplanSolutionDto generateSeatingplanSolution(UUID id) {
+  public synchronized SeatingplanSolutionDto generateSeatingplanSolution(UUID id) {
     var seatingplan = repository.findByIdOptional(id).orElseThrow();
     var solution = optimizer.optimize(seatingplan);
     seatingplan.setSolution(solution);
